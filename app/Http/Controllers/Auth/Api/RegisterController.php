@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth\Api;
 
 use App\Models\User;
+use App\Models\UserProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -45,6 +46,13 @@ class RegisterController extends BaseController
             $success['email'] =  $user->email;
             $success['role_id'] =  $user->role_id;
             $success['status'] =  $user->status;
+            $user_profile = new UserProfile;
+            $user_profile->user_id = $user->id;
+            $user_profile->first_name = $request->first_name;
+            $user_profile->last_name = $request->last_name;
+            $user_profile->last_name = $request->last_name;
+            $user_profile->email = $request->email;
+            $user_profile->save();
             $user_data = User::where('id',$user->id)->with("roles")->first();
         }catch(\Exception $e)
         {
