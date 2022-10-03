@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Auth\Api;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Auth\Api\BaseController;
 
-class RegisterController extends Controller
+class RegisterController extends BaseController
 {
       /**
      * Register api
@@ -25,27 +29,27 @@ class RegisterController extends Controller
             ]);
        
             if($validator->fails()){
-                return $this->sendError('Validation Error.', $validator->errors());       
+                return $this->sendError('Validation Error.', $validator->errors(),400);       
             }
             $input = $request->all();
+            // $input['role_id'] = 2;
+            $input['status'] = 1;
             $input['password'] = Hash::make($input['password']);
             $user = User::create($input);
             $success['token'] =  $user->createToken('MyApp')->plainTextToken;
-            $success['full_name'] =  $user->name;
+            $success['full_name'] =  $user->full_name;
             $success['email'] =  $user->email;
-            $success['status'] = 1;
-            $success['role_id'] = 2;
+            $success['role_id'] =  $user->role_id;
+            $success['status'] =  $user->status;
 
         }catch(\Exception $e)
         {
-            dd($e->getMessage());
             DB::rollback();
-            return Redirect()->back()
-                ->with('error',$e->getMessage() )
-                ->withInput();
+            return $this->sendError('error', "Something Went Wrong!",404);
+            // return Redirect()->back()->with('error',$e->getMessage(),404)->withInput();
         }
         DB::commit();
-        return $this->sendResponse($success, 'User register successfully.');
+        return $this->sendResponse($success, 'User register successfully.',200);
     }
    
     /**
