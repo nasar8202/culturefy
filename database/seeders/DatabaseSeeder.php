@@ -1,9 +1,10 @@
 <?php
 
 namespace Database\Seeders;
-use Illuminate\Support\Facades\Hash;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,7 +16,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         User::create([
-            'name' => 'Super Admin',
+            'full_name' => 'Super Admin',
             'role_id'=>1,
             'email' => 'superadmin@gmail.com',
             'password' => hash::make('12345678'),

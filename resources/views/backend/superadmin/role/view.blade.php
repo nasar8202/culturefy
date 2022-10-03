@@ -68,11 +68,11 @@
                         @endphp
                         @forelse ($rolePermissions as $permission )
                         <tr>
-                            <td>{{ $permission['role_id'] }}</td>
-                            <td>{{ $permission['role_name'] }}</td>
+                            <td>{{ $permission['id']??'' }}</td>
+                            <td>{{ $permission['role_name']??'' }}</td>
                             <td>
-                                <a href="{{ route('EditRoleForm',$permission['role_id'] )}} "><span class="badge bg-primary">Edit</span></a>
-                                <a href="{{ route('Delete',$permission['role_id'] )}} "><span class="badge bg-danger">Delete</span></a>
+                                <a href="{{ route('EditRoleForm',$permission['id'] )}} "><span class="badge bg-primary">Edit</span></a>
+                                <a href="{{ route('Delete',$permission['id'] )}} "><span class="badge bg-danger">Delete</span></a>
                             </td>
                             <td>
                                 @foreach ($permission['role_permission'] as $permission)
