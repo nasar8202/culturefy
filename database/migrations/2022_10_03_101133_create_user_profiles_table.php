@@ -27,7 +27,7 @@ class CreateUserProfilesTable extends Migration
             $table->string('city')->nullable();
             $table->string('state')->nullable();
             $table->string('bio')->nullable();
-            $table->string('gender')->nullable();
+            $table->enum('gender', ['Male', 'Female','Others'])->nullable();
             $table->string('skills')->nullable();
             $table->string('website')->nullable();
             $table->string('facebook_link')->nullable();
@@ -37,7 +37,7 @@ class CreateUserProfilesTable extends Migration
             $table->string('life_experience')->nullable();
             $table->string('designation')->nullable();
             $table->string('is_mentor')->nullable();
-            $table->string('status')->default(1);
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });
