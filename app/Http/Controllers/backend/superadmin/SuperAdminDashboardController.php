@@ -56,7 +56,7 @@ class SuperAdminDashboardController extends Controller
         DB::beginTransaction();
         try{
 
-            $rolePermissions = Role::where('role_status',0)->get()->toArray();
+            $rolePermissions = Role::where('status',1)->get()->toArray();
 
         }catch(\Exception $e)
         {
@@ -75,9 +75,9 @@ class SuperAdminDashboardController extends Controller
 
         DB::beginTransaction();
         try{
-            $rolePermissionsUser = Role::where('role_id',$id)->first();
+            $rolePermissionsUser = Role::where('id',$id)->first();
             //dd($rolePermissionsUser);
-            $rolePermissions = Role::where('role_id',$id)->first();
+            $rolePermissions = Role::where('id',$id)->first();
             //$data= $rolePermissions->role_permission;
 
             $rolePermissionsArray = [];
@@ -118,7 +118,7 @@ class SuperAdminDashboardController extends Controller
 
             $input['role_name'] = $request->role_name;
             $input['role_permission'] = $request->input('role_permission');
-            Role::where('role_id',$id)->update($input);
+            Role::where('id',$id)->update($input);
             // $input = $request->role_name;
             // $input['role_permission']= $request->role_permission;
 
@@ -140,7 +140,7 @@ class SuperAdminDashboardController extends Controller
 
         DB::beginTransaction();
         try{
-            $delete  = Role::where('role_id',$id)->delete();
+            $delete  = Role::where('id',$id)->delete();
         }catch(\Exception $e)
         {
             DB::rollback();

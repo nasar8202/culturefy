@@ -38,7 +38,7 @@ Route::group(['prefix' => 'superadmin','middleware'=>['auth','superadmin']], fun
     Route::post('/store',  [SuperAdminDashboardController::class,'store'])->name('store');
     Route::get('/view-role',  [SuperAdminDashboardController::class,'ViewRole'])->name('ViewRole');
     Route::get('/edit/{id}',  [SuperAdminDashboardController::class,'EditRoleForm'])->name('EditRoleForm');
-    Route::get('/update/{id}',  [SuperAdminDashboardController::class,'update'])->name('update');
+    Route::post('/update/{id}',  [SuperAdminDashboardController::class,'update'])->name('update');
     Route::get('/delete/{id}',  [SuperAdminDashboardController::class,'delete'])->name('Delete');
 
 
