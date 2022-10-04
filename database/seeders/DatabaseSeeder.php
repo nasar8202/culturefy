@@ -21,5 +21,12 @@ class DatabaseSeeder extends Seeder
             'email' => 'superadmin@gmail.com',
             'password' => hash::make('12345678'),
         ]);
+
+
+        Role::create([
+            'role_permission' => 'all',
+            'role_name' => 'admin',
+
+        ]);
     }
 }
