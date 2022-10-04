@@ -25,7 +25,7 @@ class RegisterController extends BaseController
         DB::beginTransaction();
         try{
             $validator = Validator::make($request->all(), [
-                'full_name' => 'required|unique:users',
+                'full_name' => 'required',
                 'email' => 'required|email|unique:users',
                 'password' => 'required',
                 'role_id' => 'required',
@@ -39,11 +39,11 @@ class RegisterController extends BaseController
             $input['password'] = Hash::make($input['password']);
             $user = User::create($input);
             $success['token'] =  $user->createToken('MyApp')->plainTextToken;
-            $success['email'] =  $user->email;
-            $success['full_name'] =  $user->full_name;
-            $success['role_id'] =  $user->role_id;
-            $success['status'] =  $user->status;
-            $user_data = User::where('id',$user->id)->with("roles")->first();
+            // $success['email'] =  $user->email;
+            // $success['full_name'] =  $user->full_name;
+            // $success['role_id'] =  $user->role_id;
+            // $success['status'] =  $user->status;
+            $user_data = User::select('full_name','email','role_id')->where('id',$user->id)->with("roles")->first();
         }catch(\Exception $e)
         {
             DB::rollback();
@@ -51,7 +51,7 @@ class RegisterController extends BaseController
             // return Redirect()->back()->with('error',$e->getMessage(),404)->withInput();
         }
         DB::commit();
-        return $this->sendResponse($user_data, 'User register successfully.',200);
+        return $this->sendResponse([$success,$user_data], 'User register successfully.',200);
     }
     public function update(Request $request)
     {
@@ -104,7 +104,6 @@ class RegisterController extends BaseController
             $user_profile_data = UserProfile::where("id",$user_profile->id)->first();
         }catch(\Exception $e)
         {
-            dd($e);
             DB::rollback();
             return $this->sendError('error', "Something Went Wrong!",404);
             // return Redirect()->back()->with('error',$e->getMessage(),404)->withInput();
@@ -126,7 +125,7 @@ class RegisterController extends BaseController
             // $success['full_name'] =  $user->full_name;
             // $success['email'] =  $user->email;
             // $success['role_id'] =  $user->role_id;
-            $user_data = User::where('id',$user->id)->with("roles")->first();
+            $user_data = User::select('full_name','email','role_id')->where('id',$user->id)->with("roles")->first();
 
             return $this->sendResponse([$success,$user_data], 'User login successfully.',200);
         } 
