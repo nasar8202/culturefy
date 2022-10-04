@@ -15,6 +15,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        Role::create([
+            'role_permission' => 'all',
+            'role_name' => 'admin',
+
+        ]);
         User::create([
             'full_name' => 'Super Admin',
             'role_id'=>1,
@@ -23,10 +28,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
 
-        Role::create([
-            'role_permission' => 'all',
-            'role_name' => 'admin',
 
-        ]);
     }
 }
