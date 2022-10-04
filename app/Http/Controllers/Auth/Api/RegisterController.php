@@ -64,6 +64,28 @@ class RegisterController extends BaseController
         DB::commit();
         return $this->sendResponse($user_data, 'User register successfully.',200);
     }
+    public function update(Request $request)
+    {
+        DB::beginTransaction();
+        try{
+            $user_profile = new UserProfile;
+            $user_profile->user_id = $user->id;
+            $user_profile->first_name = $request->first_name;
+            $user_profile->last_name = $request->last_name;
+            $user_profile->last_name = $request->last_name;
+            $user_profile->email = $request->email;
+            $user_profile->save();
+            $user_data = User::where('id',$user->id)->with("roles")->first();
+        }catch(\Exception $e)
+        {
+            dd($e);
+            DB::rollback();
+            return $this->sendError('error', "Something Went Wrong!",404);
+            // return Redirect()->back()->with('error',$e->getMessage(),404)->withInput();
+        }
+        DB::commit();
+        return $this->sendResponse($user_data, 'User register successfully.',200);
+    }
    
     /**
      * Login api

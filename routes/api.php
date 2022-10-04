@@ -15,6 +15,7 @@ use App\Http\Controllers\Auth\Api\RegisterController;
 |
 */
 Route::post('register', [RegisterController::class, 'register']);
+Route::post('details/update', [RegisterController::class, 'update']);
 Route::post('login', [RegisterController::class, 'login']);
      
 Route::middleware('auth:sanctum')->group( function () {
