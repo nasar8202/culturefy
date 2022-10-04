@@ -16,12 +16,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Role::create([
-<<<<<<< HEAD
-            'role_permission' => 'all',
-=======
             'role_permission' => array('all'),
->>>>>>> 25f024b58ccbd64e720a8f87c28177720ec437f9
-            'role_name' => 'admin',
+            'role_name' => 'Super Admin',
+            'status'=>0,
 
         ]);
         User::create([
@@ -30,11 +27,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'superadmin@gmail.com',
             'password' => hash::make('12345678'),
         ]);
-<<<<<<< HEAD
-=======
 
 
 
->>>>>>> 25f024b58ccbd64e720a8f87c28177720ec437f9
     }
 }

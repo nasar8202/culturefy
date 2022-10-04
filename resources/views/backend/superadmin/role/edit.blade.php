@@ -42,7 +42,7 @@
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                            <form class="form" action="{{ route('update',$rolePermissionsUser->id) }}" method="POST" enctype="multipart/form-data">
+                            <form class="form" action="{{ route('updateRole',$rolePermissionsUser->id) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @if ($errors->has('role_name'))
                                     <span class="text-danger">{{ $errors->first('role_name') }}</span>

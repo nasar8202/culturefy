@@ -57,13 +57,6 @@ class RegisterController extends BaseController
     {
         DB::beginTransaction();
         try{
-            $validator = Validator::make($request->all(), [
-                'user_id' => 'required'
-            ]);
-            
-            if($validator->fails()){
-                return $this->sendError('Validation Error.', $validator->errors(),400);       
-            }
             // $id = $request->user_id;
             
             // $token = PersonalAccessToken::findToken($hashedTooken);

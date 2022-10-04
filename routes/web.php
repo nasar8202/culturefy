@@ -38,16 +38,16 @@ Route::group(['prefix' => 'superadmin','middleware'=>['auth','superadmin']], fun
     Route::get('/create-role', [SuperAdminDashboardController::class,'RoleForm'])->name('RoleForm');
     Route::post('/add-role',  [SuperAdminDashboardController::class,'addRole'])->name('addRole');
     Route::get('/view-role',  [SuperAdminDashboardController::class,'ViewRole'])->name('ViewRole');
-    Route::get('/edit/{id}',  [SuperAdminDashboardController::class,'EditRoleForm'])->name('EditRole');
-    Route::post('/update/{id}',  [SuperAdminDashboardController::class,'update'])->name('update');
-    Route::get('/delete/{id}',  [SuperAdminDashboardController::class,'delete'])->name('Delete');
+    Route::get('/edit-role/{id}',  [SuperAdminDashboardController::class,'EditRoleForm'])->name('EditRole');
+    Route::post('/update-role/{id}',  [SuperAdminDashboardController::class,'update'])->name('updateRole');
+    Route::get('/delete-role/{id}',  [SuperAdminDashboardController::class,'delete'])->name('Delete');
 
     // category code start
     Route::get('/category', [CategoryController::class,'categoryForm'])->name('categoryForm');
     Route::post('/category', [CategoryController::class,'store'])->name('store');
     Route::get('/view-categories', [CategoryController::class,'viewCategories'])->name('viewCategories');
-    Route::get('/edit/{id}',  [CategoryController::class,'EditCategoryForm'])->name('EditCategoryForm');
-    Route::post('/update/{id}',  [CategoryController::class,'update'])->name('update');
+    Route::get('/edit-category/{id}',  [CategoryController::class,'EditCategoryForm'])->name('EditCategoryForm');
+    Route::post('/update-category/{id}',  [CategoryController::class,'update'])->name('updateCategory');
     // sub category
     Route::get('/sub-category', [CategoryController::class,'subCategoryForm'])->name('subCategoryForm');
     Route::post('/sub-category', [CategoryController::class,'storeSubCategory'])->name('storeSubCategory');

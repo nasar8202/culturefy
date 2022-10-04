@@ -42,7 +42,7 @@
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                            <form class="form" action="{{ route('update',$brandCategory->id) }}" method="POST" enctype="multipart/form-data">
+                            <form class="form" action="{{ route('updateCategory',$brandCategory->id) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="row">
