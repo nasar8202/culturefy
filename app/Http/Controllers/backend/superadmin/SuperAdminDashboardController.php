@@ -46,7 +46,7 @@ class SuperAdminDashboardController extends Controller
         DB::commit();
 
 
-        return redirect('superadmin/view-role')->with('success','Data added Successfully');
+        return redirect()->route("ViewRole")->with('success','Data added Successfully');
          //Role::create([$input]);
         //return view('backend.superadmin.role.create');
     }
@@ -132,7 +132,7 @@ class SuperAdminDashboardController extends Controller
                 ->withInput();
         }
         DB::commit();
-        return redirect('superadmin/view-role')->with('success','Data updated Successfully');
+        return redirect()->route("ViewRole")->with('success','Data updated Successfully');
     }
 
     public function delete($id)
@@ -150,6 +150,6 @@ class SuperAdminDashboardController extends Controller
                 ->withInput();
         }
         DB::commit();
-        return redirect('superadmin/view-role')->with('success','Data Deleted Successfully');
+        return redirect()->route("ViewRole")->with('success','Data Deleted Successfully');
     }
 }
