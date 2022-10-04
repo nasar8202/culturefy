@@ -17,7 +17,7 @@ class SuperAdminDashboardController extends Controller
     {
         return view('backend.superadmin.role.create');
     }
-    public function store(RolePermissionStoreRequest $request)
+    public function addRole(RolePermissionStoreRequest $request)
     {
         $validated = $request->validated();
 

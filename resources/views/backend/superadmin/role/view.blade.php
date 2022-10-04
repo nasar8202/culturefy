@@ -68,10 +68,10 @@
                         @endphp
                         @forelse ($rolePermissions as $permission )
                         <tr>
-                            <td>{{ $permission['id'] }}</td>
+                            <td>{{ $i++ }}</td>
                             <td>{{ $permission['role_name'] }}</td>
                             <td>
-                                <a href="{{ route('EditRoleForm',$permission['id'] )}} "><span class="badge bg-primary">Edit</span></a>
+                                <a href="{{ route('EditRole',$permission['id'] )}} "><span class="badge bg-primary">Edit</span></a>
                                 <a href="{{ route('Delete',$permission['id'] )}} "><span class="badge bg-danger">Delete</span></a>
                             </td>
                             <td>
