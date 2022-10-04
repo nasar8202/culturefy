@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\backend\admin\AdminDashboardController;
 use App\Http\Controllers\backend\superadmin\SuperAdminDashboardController;
+use App\Http\Controllers\backend\superadmin\CategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,6 +41,21 @@ Route::group(['prefix' => 'superadmin','middleware'=>['auth','superadmin']], fun
     Route::get('/edit/{id}',  [SuperAdminDashboardController::class,'EditRoleForm'])->name('EditRoleForm');
     Route::post('/update/{id}',  [SuperAdminDashboardController::class,'update'])->name('update');
     Route::get('/delete/{id}',  [SuperAdminDashboardController::class,'delete'])->name('Delete');
+
+    // category code start
+    Route::get('/category', [CategoryController::class,'categoryForm'])->name('categoryForm');
+    Route::post('/category', [CategoryController::class,'store'])->name('store');
+    Route::get('/view-categories', [CategoryController::class,'viewCategories'])->name('viewCategories');
+    Route::get('/edit/{id}',  [CategoryController::class,'EditCategoryForm'])->name('EditCategoryForm');
+    Route::post('/update/{id}',  [CategoryController::class,'update'])->name('update');
+    // sub category
+    Route::get('/sub-category', [CategoryController::class,'subCategoryForm'])->name('subCategoryForm');
+    Route::post('/sub-category', [CategoryController::class,'storeSubCategory'])->name('storeSubCategory');
+
+
+
+    // category code end
+
 
 
 });

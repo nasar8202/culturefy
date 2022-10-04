@@ -23,7 +23,24 @@
 
         </ul>
     </li>
+    <li class="sidebar-item  has-sub">
+        <a href="#" class='sidebar-link'>
+            <i class="bi bi-stack"></i>
+            <span>Manage Categories</span>
+        </a>
+        <ul class="submenu ">
+            <li class="submenu-item ">
+                <a href="{{ route('categoryForm') }}">Add Category</a>
+            </li>
+            <li class="submenu-item ">
+                <a href="{{ route('subCategoryForm') }}">Add Sub Category</a>
+            </li>
+            <li class="submenu-item ">
+                <a href="{{ route('viewCategories') }}">View Category</a>
+            </li>
 
+        </ul>
+    </li>
     <li class="sidebar-item  ">
         <a href="{{route('logout')}}" class='sidebar-link'>
             <div class="icon dripicons-exit"></div>
