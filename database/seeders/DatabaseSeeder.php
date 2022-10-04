@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Role::create([
-            'role_permission' => 'all',
+            'role_permission' => array('all'),
             'role_name' => 'admin',
 
         ]);

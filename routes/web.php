@@ -36,9 +36,9 @@ Route::group(['prefix' => 'superadmin','middleware'=>['auth','superadmin']], fun
     Route::get('/superadmin', [SuperAdminDashboardController::class,'superadmin'])->name('superadmin');
     Route::get('/dashboard', [SuperAdminDashboardController::class,'superadmin'])->name('dashboard');
     Route::get('/create-role', [SuperAdminDashboardController::class,'RoleForm'])->name('RoleForm');
-    Route::post('/store',  [SuperAdminDashboardController::class,'store'])->name('store');
+    Route::post('/add-role',  [SuperAdminDashboardController::class,'addRole'])->name('addRole');
     Route::get('/view-role',  [SuperAdminDashboardController::class,'ViewRole'])->name('ViewRole');
-    Route::get('/edit/{id}',  [SuperAdminDashboardController::class,'EditRoleForm'])->name('EditRoleForm');
+    Route::get('/edit/{id}',  [SuperAdminDashboardController::class,'EditRoleForm'])->name('EditRole');
     Route::post('/update/{id}',  [SuperAdminDashboardController::class,'update'])->name('update');
     Route::get('/delete/{id}',  [SuperAdminDashboardController::class,'delete'])->name('Delete');
 
@@ -70,7 +70,7 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 //     Route::get('/create-role', 'RoleForm');
 //     Route::post('/store', 'store');
 //     Route::get('/view-role', 'ViewRole');
-//     Route::get('/edit', 'EditRoleForm');
+
 
 
 // });
