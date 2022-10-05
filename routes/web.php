@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\backend\admin\AdminDashboardController;
 use App\Http\Controllers\backend\superadmin\SuperAdminDashboardController;
 use App\Http\Controllers\backend\superadmin\CategoryController;
+use App\Http\Controllers\backend\superadmin\QuestionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -56,6 +57,10 @@ Route::group(['prefix' => 'superadmin','middleware'=>['auth','superadmin']], fun
 
     // category code end
 
+
+    // Questions code start
+    Route::get('/question', [QuestionController::class,'questionForm'])->name('questionForm');
+    // Questions code end
 
 
 });

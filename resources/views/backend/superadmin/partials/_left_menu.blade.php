@@ -41,6 +41,22 @@
 
         </ul>
     </li>
+
+    <li class="sidebar-item  has-sub">
+        <a href="#" class='sidebar-link'>
+            <i class="bi bi-stack"></i>
+            <span>Manage Questions</span>
+        </a>
+        <ul class="submenu ">
+            <li class="submenu-item ">
+                <a href="{{ route('questionForm') }}">Add Question</a>
+            </li>
+
+
+        </ul>
+    </li>
+
+
     <li class="sidebar-item  ">
         <a href="{{route('logout')}}" class='sidebar-link'>
             <div class="icon dripicons-exit"></div>

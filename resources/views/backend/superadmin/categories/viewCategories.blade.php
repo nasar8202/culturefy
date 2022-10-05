@@ -56,8 +56,8 @@
                     <thead>
                         <tr>
                             <th>S.#</th>
+                            <th>Category</th>
                             <th>Parent Category</th>
-                            <th>Sub Category</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -69,13 +69,13 @@
                         @forelse ($brandCategories as $brandCategory )
                         <tr>
                             <td>{{ $i++ }}</td>
+
+                            <td>{{ $brandCategory['category_name'] }}</td>
                             <td>
                                 @php
                                     echo $brandCategory->sub_category['category_name']??'No Parent Category'
                                 @endphp
                             </td>
-                            <td>{{ $brandCategory['category_name'] }}</td>
-
                             <td>
                                 <a href="{{ route('EditCategoryForm',$brandCategory['id'] )}} "><span class="badge bg-primary">Edit</span></a>
                                 <a href="{{ route('Delete',$brandCategory['id'] )}} "><span class="badge bg-danger">Delete</span></a>
