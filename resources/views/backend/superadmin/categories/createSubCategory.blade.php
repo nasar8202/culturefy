@@ -23,7 +23,7 @@
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ url('superadmin/dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('superadmin') }}">Dashboard</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Sub Category Form </li>
                     </ol>
                 </nav>
@@ -52,10 +52,15 @@
 
                                             <fieldset class="form-group">
                                                 <select class="form-select" name="id" id="basicSelect">
-                                                    <option value="" aria-readonly="">Select Role</option>
+                                                    <option value="" aria-readonly="">Select Category</option>
+                                                    @if ((count($brandCategories)) == 0)
+                                                    <option value="" aria-readonly="" disabled>No Category Found!</option>
+                                                    @else
                                                     @foreach ($brandCategories as $category )
                                                     <option value="{{ $category->id }}">{{ $category->category_name }}</option>
                                                     @endforeach
+                                                    @endif
+
 
                                                 </select>
                                             </fieldset>

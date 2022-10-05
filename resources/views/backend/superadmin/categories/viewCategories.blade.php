@@ -23,7 +23,7 @@
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ url('superadmin/dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('superadmin') }}">Dashboard</a></li>
                         <li class="breadcrumb-item active" aria-current="page">View Categories  </li>
                     </ol>
                 </nav>
@@ -56,7 +56,8 @@
                     <thead>
                         <tr>
                             <th>S.#</th>
-                            <th>Category Name</th>
+                            <th>Parent Category</th>
+                            <th>Sub Category</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -68,7 +69,13 @@
                         @forelse ($brandCategories as $brandCategory )
                         <tr>
                             <td>{{ $i++ }}</td>
+                            <td>
+                                @php
+                                    echo $brandCategory->sub_category['category_name']??'No Parent Category'
+                                @endphp
+                            </td>
                             <td>{{ $brandCategory['category_name'] }}</td>
+
                             <td>
                                 <a href="{{ route('EditCategoryForm',$brandCategory['id'] )}} "><span class="badge bg-primary">Edit</span></a>
                                 <a href="{{ route('Delete',$brandCategory['id'] )}} "><span class="badge bg-danger">Delete</span></a>

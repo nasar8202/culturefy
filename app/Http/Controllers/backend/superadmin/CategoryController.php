@@ -16,6 +16,7 @@ class CategoryController extends Controller
     }
     public function subCategoryForm(){
         $brandCategories = BrandCultureCategory::where('parent_id',0)->get();
+
         return view('backend.superadmin.categories.createSubCategory',compact('brandCategories'));
     }
 
@@ -74,7 +75,7 @@ class CategoryController extends Controller
         DB::beginTransaction();
         try{
 
-            $brandCategories = BrandCultureCategory::where('parent_id',0)->get();
+            $brandCategories = BrandCultureCategory::where('status',1)->get();
 
         }catch(\Exception $e)
         {
@@ -92,6 +93,7 @@ class CategoryController extends Controller
         DB::beginTransaction();
         try{
             $brandCategory = BrandCultureCategory::where('id',$id)->first();
+            $brandCategories = BrandCultureCategory::where('parent_id',0)->get();
 
         }catch(\Exception $e)
         {
@@ -102,7 +104,7 @@ class CategoryController extends Controller
         }
         DB::commit();
 
-        return view('backend.superadmin.categories.edit',compact('brandCategory'));
+        return view('backend.superadmin.categories.edit',compact('brandCategory','brandCategories'));
     }
 
     public function update(StoreCategory $request, $id)

@@ -19,4 +19,14 @@ class BrandCultureCategory extends Model
     // {
     //     return strtoupper($value);
     // }
+
+    public function sub_category()
+    {
+        return $this->belongsTo(self::class, 'parent_id', 'id');
+    }
+
+    public function parent_category()
+    {
+        return $this->hasMany(self::class, 'id', 'parent_id');
+    }
 }

@@ -23,7 +23,7 @@
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ url('superadmin/dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('superadmin') }}">Dashboard</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Edit Category Form </li>
                     </ol>
                 </nav>
@@ -47,7 +47,24 @@
 
                                 <div class="row">
                                     <div class="col-md-12 mb-4 col-12">
+                                        <div class="col-md-12 mb-4 col-12">
+                                            <h6>Select User</h6>
 
+                                            <fieldset class="form-group">
+                                                <select class="form-select" name="id" id="basicSelect">
+                                                    <option value="" aria-readonly="">Select Category</option>
+                                                    @if ((count($brandCategories)) == 0)
+                                                    <option value="" aria-readonly="" disabled>No Category Found!</option>
+                                                    @else
+                                                    @foreach ($brandCategories as $category )
+                                                    <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                                    @endforeach
+                                                    @endif
+
+
+                                                </select>
+                                            </fieldset>
+                                        </div>
                                         <div class="form-group">
                                             <label for="squareText">Add Category</label>
                                             <input type="text" id="category" name="category_name" value="{{ $brandCategory->category_name }}" class="form-control square"
