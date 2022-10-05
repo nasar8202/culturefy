@@ -48,19 +48,18 @@
                                 <div class="row">
                                     <div class="col-md-12 mb-4 col-12">
                                         <div class="col-md-12 mb-4 col-12">
-                                            <h6>Select User</h6>
+                                            <h6>Select Parent Category</h6>
 
                                             <fieldset class="form-group">
                                                 <select class="form-select" name="id" id="basicSelect">
                                                     <option value="" aria-readonly="">Select Category</option>
-                                                    @if ((count($brandCategories)) == 0)
-                                                    <option value="" aria-readonly="" disabled>No Category Found!</option>
+                                                    @if ($brandCategory->parent_id == 0)
+                                                    <option value="" aria-readonly="" disabled>No Parent Category Found</option>
                                                     @else
                                                     @foreach ($brandCategories as $category )
-                                                    <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                                    <option selected value="{{ $category->id }}"  >{{  $category->category_name ?? '';  }}</option>
                                                     @endforeach
                                                     @endif
-
 
                                                 </select>
                                             </fieldset>
