@@ -94,7 +94,7 @@ class RegisterController extends BaseController
             $user_profile->designation = $request->designation;
             $user_profile->is_mentor = $request->is_mentor;
             $user_profile->save();
-            $user_profile_data = UserProfile::where("id",$user_profile->id)->first();
+            $user_profile_data = UserProfile::where("id",$user_profile->id)->first()->makeHidden(['id','created_at','updated_at','deleted_at','status']);
         }catch(\Exception $e)
         {
             DB::rollback();
