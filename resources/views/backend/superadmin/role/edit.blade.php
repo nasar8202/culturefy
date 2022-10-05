@@ -109,19 +109,19 @@
                                                                     <?php
                                                                     if(array_key_exists("courses", $rolePermissionsArray)){
                                                                         ?>
-                                                                        <input type="checkbox" id="checkbox1" name="role_permission[]" value="courses" checked  class="form-check-input"
+                                                                        <input type="checkbox" id="checkbox2" name="role_permission[]" value="courses" checked  class="form-check-input"
                                                                         >
                                                                         <?php
                                                                     }else {
                                                                         ?>
-                                                                        <input type="checkbox" id="checkbox1" name="role_permission[]" value="courses"   class="form-check-input"
+                                                                        <input type="checkbox" id="checkbox2" name="role_permission[]" value="courses"   class="form-check-input"
                                                                         >
                                                                         <?php
                                                                     }
 
                                                                    ?>
 
-                                                                    <label for="checkbox1">Courses</label>
+                                                                    <label for="checkbox2">Courses</label>
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -131,19 +131,19 @@
                                                                     <?php
                                                                     if(array_key_exists("videos", $rolePermissionsArray)){
                                                                         ?>
-                                                                        <input type="checkbox" id="checkbox1" name="role_permission[]" value="videos" checked class="form-check-input"
+                                                                        <input type="checkbox" id="checkbox3" name="role_permission[]" value="videos" checked class="form-check-input"
                                                                         >
                                                                         <?php
                                                                     }else{
                                                                         ?>
-                                                                        <input type="checkbox" id="checkbox1" name="role_permission[]" value="videos"  class="form-check-input"
+                                                                        <input type="checkbox" id="checkbox3" name="role_permission[]" value="videos"  class="form-check-input"
                                                                         >
                                                                         <?php
                                                                     }
 
                                                                    ?>
 
-                                                                    <label for="checkbox1">Videos</label>
+                                                                    <label for="checkbox3">Videos</label>
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -153,19 +153,19 @@
                                                                     <?php
                                                                     if(array_key_exists("archieved", $rolePermissionsArray)){
                                                                         ?>
-                                                                         <input type="checkbox" id="checkbox1" name="role_permission[]" value="archieved" checked class="form-check-input"
+                                                                         <input type="checkbox" id="checkbox4" name="role_permission[]" value="archieved" checked class="form-check-input"
                                                                          >
                                                                         <?php
                                                                     }else{
                                                                         ?>
-                                                                         <input type="checkbox" id="checkbox1" name="role_permission[]" value="archieved" class="form-check-input"
+                                                                         <input type="checkbox" id="checkbox4" name="role_permission[]" value="archieved" class="form-check-input"
                                                                          >
                                                                         <?php
                                                                     }
 
                                                                    ?>
 
-                                                                    <label for="checkbox1">Archieved</label>
+                                                                    <label for="checkbox4">Archieved</label>
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -175,19 +175,19 @@
                                                                     <?php
                                                                         if(array_key_exists("certifications", $rolePermissionsArray)){
                                                                             ?>
-                                                                            <input type="checkbox" id="checkbox1" name="role_permission[]" value="certifications" checked class="form-check-input"
+                                                                            <input type="checkbox" id="checkbox5" name="role_permission[]" value="certifications" checked class="form-check-input"
                                                                             >
                                                                             <?php
                                                                         }else{
                                                                             ?>
-                                                                            <input type="checkbox" id="checkbox1" name="role_permission[]" value="certifications" class="form-check-input"
+                                                                            <input type="checkbox" id="checkbox5" name="role_permission[]" value="certifications" class="form-check-input"
                                                                             >
                                                                             <?php
                                                                         }
 
                                                                     ?>
 
-                                                                    <label for="checkbox1">Certifications</label>
+                                                                    <label for="checkbox5">Certifications</label>
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -206,19 +206,19 @@
                                                                     <?php
                                                                         if(array_key_exists("redeem", $rolePermissionsArray)){
                                                                             ?>
-                                                                            <input type="checkbox" id="checkbox1" name="role_permission[]" value="redeem" checked class="form-check-input"
+                                                                            <input type="checkbox" id="checkbox6" name="role_permission[]" value="redeem" checked class="form-check-input"
                                                                             >
                                                                             <?php
                                                                         }else{
                                                                             ?>
-                                                                            <input type="checkbox" id="checkbox1" name="role_permission[]" value="redeem" class="form-check-input"
+                                                                            <input type="checkbox" id="checkbox6" name="role_permission[]" value="redeem" class="form-check-input"
                                                                             >
                                                                             <?php
                                                                         }
 
                                                                     ?>
 
-                                                                    <label for="checkbox1">Redeem</label>
+                                                                    <label for="checkbox6">Redeem</label>
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -238,19 +238,19 @@
                                                                     <?php
                                                                         if(array_key_exists("resourceGroups", $rolePermissionsArray)){
                                                                             ?>
-                                                                            <input type="checkbox" id="checkbox1" name="role_permission[]" value="resourceGroups" checked class="form-check-input"
+                                                                            <input type="checkbox" id="checkbox7" name="role_permission[]" value="resourceGroups" checked class="form-check-input"
                                                                             >
                                                                             <?php
                                                                         }else{
                                                                             ?>
-                                                                            <input type="checkbox" id="checkbox1" name="role_permission[]" value="resourceGroups" class="form-check-input"
+                                                                            <input type="checkbox" id="checkbox7" name="role_permission[]" value="resourceGroups" class="form-check-input"
                                                                             >
                                                                             <?php
                                                                         }
 
                                                                     ?>
 
-                                                                    <label for="checkbox1">Resource Groups</label>
+                                                                    <label for="checkbox7">Resource Groups</label>
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -260,19 +260,19 @@
                                                                     <?php
                                                                         if(array_key_exists("events", $rolePermissionsArray)){
                                                                             ?>
-                                                                            <input type="checkbox" id="checkbox1" name="role_permission[]" value="events" checked class="form-check-input"
+                                                                            <input type="checkbox" id="checkbox8" name="role_permission[]" value="events" checked class="form-check-input"
                                                                             >
                                                                             <?php
                                                                         }else{
                                                                             ?>
-                                                                            <input type="checkbox" id="checkbox1" name="role_permission[]" value="events" class="form-check-input"
+                                                                            <input type="checkbox" id="checkbox8" name="role_permission[]" value="events" class="form-check-input"
                                                                             >
                                                                             <?php
                                                                         }
 
                                                                     ?>
 
-                                                                    <label for="checkbox1">Events</label>
+                                                                    <label for="checkbox8">Events</label>
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -282,19 +282,19 @@
                                                                     <?php
                                                                         if(array_key_exists("mentorship", $rolePermissionsArray)){
                                                                             ?>
-                                                                             <input type="checkbox" id="checkbox1" name="role_permission[]" value="mentorship" checked class="form-check-input"
+                                                                             <input type="checkbox" id="checkbox9" name="role_permission[]" value="mentorship" checked class="form-check-input"
                                                                              >
                                                                             <?php
                                                                         }else{
                                                                             ?>
-                                                                             <input type="checkbox" id="checkbox1" name="role_permission[]" value="mentorship" class="form-check-input"
+                                                                             <input type="checkbox" id="checkbox9" name="role_permission[]" value="mentorship" class="form-check-input"
                                                                              >
                                                                             <?php
                                                                         }
 
                                                                     ?>
 
-                                                                    <label for="checkbox1">Mentorship</label>
+                                                                    <label for="checkbox9">Mentorship</label>
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -304,19 +304,19 @@
                                                                     <?php
                                                                         if(array_key_exists("socialFeed", $rolePermissionsArray)){
                                                                             ?>
-                                                                            <input type="checkbox" id="checkbox1" name="role_permission[]" value="socialFeed" checked class="form-check-input"
+                                                                            <input type="checkbox" id="checkbox10" name="role_permission[]" value="socialFeed" checked class="form-check-input"
                                                                             >
                                                                             <?php
                                                                         }else{
                                                                             ?>
-                                                                             <input type="checkbox" id="checkbox1" name="role_permission[]" value="socialFeed" class="form-check-input"
+                                                                             <input type="checkbox" id="checkbox10" name="role_permission[]" value="socialFeed" class="form-check-input"
                                                                              >
                                                                             <?php
                                                                         }
 
                                                                     ?>
 
-                                                                    <label for="checkbox1">Social Feed</label>
+                                                                    <label for="checkbox10">Social Feed</label>
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -335,19 +335,19 @@
                                                                     <?php
                                                                         if(array_key_exists("workspaces", $rolePermissionsArray)){
                                                                             ?>
-                                                                           <input type="checkbox" id="checkbox1" name="role_permission[]" value="workspaces" checked class="form-check-input"
+                                                                           <input type="checkbox" id="checkbox11" name="role_permission[]" value="workspaces" checked class="form-check-input"
                                                                            >
                                                                             <?php
                                                                         }else{
                                                                             ?>
-                                                                             <input type="checkbox" id="checkbox1" name="role_permission[]" value="workspaces" class="form-check-input"
+                                                                             <input type="checkbox" id="checkbox11" name="role_permission[]" value="workspaces" class="form-check-input"
                                                                              >
                                                                             <?php
                                                                         }
 
                                                                     ?>
 
-                                                                    <label for="checkbox1">Workspaces</label>
+                                                                    <label for="checkbox11">Workspaces</label>
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -357,12 +357,12 @@
                                                                     <?php
                                                                         if(array_key_exists("tasks", $rolePermissionsArray)){
                                                                             ?>
-                                                                          <input type="checkbox" id="checkbox1" name="role_permission[]" value="tasks" checked class="form-check-input"
+                                                                          <input type="checkbox" id="checkbox12" name="role_permission[]" value="tasks" checked class="form-check-input"
                                                                           >
                                                                             <?php
                                                                         }else{
                                                                             ?>
-                                                                             <input type="checkbox" id="checkbox1" name="role_permission[]" value="tasks" class="form-check-input"
+                                                                             <input type="checkbox" id="checkbox12" name="role_permission[]" value="tasks" class="form-check-input"
                                                                              >
                                                                             <?php
                                                                         }
@@ -370,7 +370,7 @@
                                                                     ?>
 
 
-                                                                    <label for="checkbox1">Tasks</label>
+                                                                    <label for="checkbox12">Tasks</label>
                                                                 </div>
                                                             </div>
                                                         </li>
