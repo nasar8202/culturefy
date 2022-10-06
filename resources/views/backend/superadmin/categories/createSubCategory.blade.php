@@ -51,7 +51,7 @@
 
                                         <fieldset class="form-group">
                                             <select class="form-select" name="id" id="basicSelect">
-                                                <option value="" aria-readonly="">Select Category</option>
+                                                <option value="" aria-readonly="">Select Main Category</option>
                                                 @if ((count($brandCategories)) == 0)
                                                 <option value="" aria-readonly="" disabled>No Category Found!</option>
                                                 @else

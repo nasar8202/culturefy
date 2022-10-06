@@ -60,6 +60,8 @@ Route::group(['prefix' => 'superadmin','middleware'=>['auth','superadmin']], fun
 
     // Questions code start
     Route::get('/question', [QuestionController::class,'questionForm'])->name('questionForm');
+    Route::post('/add-question', [QuestionController::class,'storeQuestion'])->name('storeQuestion');
+
     // Questions code end
 
 

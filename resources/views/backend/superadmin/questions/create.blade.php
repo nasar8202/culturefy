@@ -42,17 +42,36 @@
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                            <form class="form" action="{{ route('store') }}" method="POST" enctype="multipart/form-data">
+                            <form class="form" action="{{ route('storeQuestion') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="row">
                                     <div class="col-md-12 mb-4 col-12">
+                                        <h6>Select Main Category </h6>
 
-                                        <div class="form-group">
-                                            <label for="squareText">Add Question</label>
-                                            <input type="text" id="category" name="category_name" class="form-control square"
-                                                placeholder="add Category">
+                                        <fieldset class="form-group">
+                                            <select class="form-select" name="id" id="basicSelect">
+                                                <option value="" aria-readonly="">Select Main Category</option>
+                                                @if ((count($brandCategories)) == 0)
+                                                <option value="" aria-readonly="" disabled>No Category Found!</option>
+                                                @else
+                                                @foreach ($brandCategories as $category )
+                                                <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                                @endforeach
+                                                @endif
+
+
+                                            </select>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-md-12 mb-4 col-12">
+                                        <div class="form-group with-title mb-3">
+                                            <textarea class="form-control" id="exampleFormControlTextarea1"
+                                                rows="3" name="question"></textarea>
+                                            <label>Type Your Question</label>
                                         </div>
+                                    </div>
+
                                         @if ($errors->has('category_name'))
                                         <span class="text-danger">{{ $errors->first('category_name') }}</span>
                                         @endif
