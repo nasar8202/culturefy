@@ -17,14 +17,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Sub Category Form </h3>
+                <h3>Category Form </h3>
 
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('superadmin') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Sub Category Form </li>
+                        <li class="breadcrumb-item active" aria-current="page">Category Form </li>
                     </ol>
                 </nav>
             </div>
@@ -38,7 +38,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Add Sub Category</h4>
+                        <h4 class="card-title">Add Category</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
@@ -47,11 +47,11 @@
 
                                 <div class="row">
                                     <div class="col-md-12 mb-4 col-12">
-                                        <h6>Select Main Category </h6>
+                                        <h6>Select Main Category<small class="text-secondary"> (Optional : If You Are Making Parent Category)</small> </h6>
 
                                         <fieldset class="form-group">
                                             <select class="form-select" name="id" id="basicSelect">
-                                                <option value="" aria-readonly="">Select Category</option>
+                                                <option value="0" aria-readonly="">Select Parent Category </option>
                                                 @if ((count($brandCategories)) == 0)
                                                 <option value="" aria-readonly="" disabled>No Category Found!</option>
                                                 @else
@@ -68,7 +68,7 @@
                                         <div class="form-group">
                                             <label for="squareText">Add Category</label>
                                             <input type="text" id="category" name="category_name" class="form-control square"
-                                                placeholder="add Sub Category">
+                                                placeholder="Add Category">
                                         </div>
                                         @if ($errors->has('category_name'))
                                         <span class="text-danger">{{ $errors->first('category_name') }}</span>

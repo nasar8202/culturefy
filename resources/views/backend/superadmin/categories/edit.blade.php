@@ -49,15 +49,22 @@
                                     <div class="col-md-12 mb-4 col-12">
                                         <div class="col-md-12 mb-4 col-12">
                                             <h6>Select Parent Category</h6>
-
                                             <fieldset class="form-group">
-                                                <select class="form-select" name="id" id="basicSelect">
-                                                    <option value="" aria-readonly="">Select Category</option>
+                                                <select  class="form-select" d name="parent_id" id="basicSelect">
+                                                    <option value="" disabled aria-readonly="">Select Category</option>
                                                     @if ($brandCategory->parent_id == 0)
-                                                    <option value="" aria-readonly="" disabled>No Parent Category Found</option>
-                                                    @else
+                                                    <option selected value="" aria-readonly="" disabled>No Parent Category Found</option>
                                                     @foreach ($brandCategories as $category )
-                                                    <option selected value="{{ $category->id }}"  >{{  $category->category_name ?? '';  }}</option>
+                                                   
+                                                    <option  value="{{ $category->id }}"  >{{  $category->category_name ?? '';  }}</option>
+                                                    @endforeach
+                                                    @else
+                                                    {{-- <optgroup label="Your Selected Category"> --}}
+                                                    {{-- <option  selected  value="{{ $brandCategory->parent_id }}"  >{{  $brandCategory->sub_category['category_name'] ?? '';  }}</option> --}}
+                                                    {{-- <optgroup label="All Categories"> --}}
+                                                    @foreach ($brandCategories as $category )
+                                                   
+                                                    <option  value="{{ $category->id }}" @if($brandCategory->parent_id == $category->id) selected @endif  >{{  $category->category_name ?? '';  }}</option>
                                                     @endforeach
                                                     @endif
 
@@ -65,7 +72,7 @@
                                             </fieldset>
                                         </div>
                                         <div class="form-group">
-                                            <label for="squareText">Add Category</label>
+                                            <label for="squareText">Edit Category</label>
                                             <input type="text" id="category" name="category_name" value="{{ $brandCategory->category_name }}" class="form-control square"
                                                 placeholder="add Category">
                                         </div>

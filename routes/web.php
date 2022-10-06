@@ -52,7 +52,7 @@ Route::group(['prefix' => 'superadmin','middleware'=>['auth','superadmin']], fun
     // sub category
     Route::get('/sub-category', [CategoryController::class,'subCategoryForm'])->name('subCategoryForm');
     Route::post('/sub-category', [CategoryController::class,'storeSubCategory'])->name('storeSubCategory');
-
+    Route::get('/delete-categ/{id}',  [CategoryController::class,'deleteCateegory'])->name('deleteCateegory');
 
 
     // category code end

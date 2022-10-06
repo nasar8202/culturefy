@@ -29,11 +29,9 @@
             <span>Manage Categories</span>
         </a>
         <ul class="submenu ">
+           
             <li class="submenu-item ">
-                <a href="{{ route('categoryForm') }}">Add Category</a>
-            </li>
-            <li class="submenu-item ">
-                <a href="{{ route('subCategoryForm') }}">Add Sub Category</a>
+                <a href="{{ route('subCategoryForm') }}">Add  Category</a>
             </li>
             <li class="submenu-item ">
                 <a href="{{ route('viewCategories') }}">View Category</a>

@@ -43,7 +43,7 @@
                         <li class="d-flex align-items-center">
                             <i class="bx bx-check-circle font-medium-3 me-50"></i>
                             <div class="buttons">
-                                <a href="{{ route('categoryForm') }}" class="btn btn-primary">Add New Category</a>
+                                <a href="{{ route('subCategoryForm') }}" class="btn btn-primary">Add New Category</a>
                             </div>
                         </li>
 
@@ -78,7 +78,7 @@
                             </td>
                             <td>
                                 <a href="{{ route('EditCategoryForm',$brandCategory['id'] )}} "><span class="badge bg-primary">Edit</span></a>
-                                <a href="{{ route('Delete',$brandCategory['id'] )}} "><span class="badge bg-danger">Delete</span></a>
+                                <a href="{{ route('deleteCateegory',$brandCategory['id'] )}} "><span class="badge bg-danger">Delete</span></a>
                             </td>
 
                         </tr>
