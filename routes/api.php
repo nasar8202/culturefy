@@ -19,5 +19,7 @@ Route::post('details/update', [RegisterController::class, 'update']);
 Route::post('login', [RegisterController::class, 'login']);
      
 Route::middleware('auth:sanctum')->group( function () {
-    Route::resource('products', ProductController::class);
 });
+    Route::get('importExportView', [RegisterController::class, 'importExportView']);
+    Route::get('export', [RegisterController::class, 'export'])->name('export');
+    Route::post('import', [RegisterController::class, 'import'])->name('import');

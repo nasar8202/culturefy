@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class BrandCultureQuestion extends Model
 {
     use HasFactory;
+    use SoftDeletes;
+
     protected $fillable = [
         'brand_culture_category_id',
         'question'

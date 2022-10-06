@@ -6,6 +6,7 @@ use App\Http\Controllers\backend\admin\AdminDashboardController;
 use App\Http\Controllers\backend\superadmin\SuperAdminDashboardController;
 use App\Http\Controllers\backend\superadmin\CategoryController;
 use App\Http\Controllers\backend\superadmin\QuestionController;
+use App\Http\Controllers\backend\superadmin\AnswerController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -68,6 +69,11 @@ Route::group(['prefix' => 'superadmin','middleware'=>['auth','superadmin']], fun
 
     // Questions code end
 
+    // answer code start
+
+    Route::get('/answerForm', [AnswerController::class,'answerForm'])->name('answerForm');
+    Route::post('/add-answer', [AnswerController::class,'storeAnswer'])->name('storeAnswer');
+    Route::get('/view-answer', [AnswerController::class,'viewAnswer'])->name('viewAnswer');
 
 });
 
