@@ -12,19 +12,18 @@ class QuestionController extends Controller
 {
     public function questionForm()
     {
-        DB::beginTransaction();
+
         try{
             $brandParentCategory = BrandCultureCategory::where(['status'=>1,'parent_id'=>0])->get();
             $brandChildCategories = BrandCultureCategory::where(['status'=>1])->get();
 
         }catch(\Exception $e)
         {
-            DB::rollback();
+
             return Redirect()->back()
                 ->with('error',$e->getMessage() )
                 ->withInput();
         }
-        DB::commit();
 
         return view('backend.superadmin.questions.create',compact('brandChildCategories','brandParentCategory'));
     }
