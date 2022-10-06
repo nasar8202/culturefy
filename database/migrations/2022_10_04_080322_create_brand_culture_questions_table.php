@@ -17,7 +17,7 @@ class CreateBrandCultureQuestionsTable extends Migration
             $table->id();
             $table->integer('brand_culture_category_id')->unsigned();
             $table->string('question');
-            $table->string('status')->default(1);
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });
