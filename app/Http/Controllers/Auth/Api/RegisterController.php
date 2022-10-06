@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth\Api;
 
 use App\Models\User;
 use App\Models\UserProfile;
+use App\Models\BusinessInfo;
+use App\Models\EmployeeInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -39,16 +41,37 @@ class RegisterController extends BaseController
             $input['password'] = Hash::make($input['password']);
             $user = User::create($input);
             $success['token'] =  $user->createToken('MyApp')->plainTextToken;
-            // $success['email'] =  $user->email;
-            // $success['full_name'] =  $user->full_name;
-            // $success['role_id'] =  $user->role_id;
-            // $success['status'] =  $user->status;
+
+            if($request->role_id == 2){
+                $business_info = new BusinessInfo;
+                $business_info->user_id = $user->id;
+                $business_info->business_name = $request->business_name;
+                $business_info->business_describe = $request->business_describe;
+                $business_info->known_as = $request->known_as;
+                $business_info->business_operating_start_date = $request->business_operating_start_date;
+                $business_info->business_history_describe = $request->business_history_describe;
+                $business_info->hr_point_person = $request->hr_point_person;
+                $business_info->survey_result = $request->survey_result;
+                $business_info->kickoff_session = $request->kickoff_session;
+                $business_info->save();
+
+                $employee_info = new EmployeeInfo;
+                $employee_info->user_id = $user->id;
+                $employee_info->demographic_info = $request->demographic_info;
+                $employee_info->historical_employee_engagement = $request->historical_employee_engagement;
+                $employee_info->org_chart = $request->org_chart;
+                $employee_info->employe_handbook = $request->employe_handbook;
+                $employee_info->turnover_data = $request->turnover_data;
+                $employee_info->exit_interview = $request->exit_interview;
+                $employee_info->save();
+            }
+
             $user_data = User::select('full_name','email','role_id')->where('id',$user->id)->with("roles")->first();
         }catch(\Exception $e)
         {
             DB::rollback();
-            return $this->sendError('error', "Something Went Wrong!",404);
-            // return Redirect()->back()->with('error',$e->getMessage(),404)->withInput();
+            return response()->json(['success'=>false,'message' => $e->getMessage()]);
+            // return $this->sendError('error', "Something Went Wrong!",404);
         }
         DB::commit();
         return $this->sendResponse([$success,$user_data], 'User register successfully.',200);
@@ -57,9 +80,10 @@ class RegisterController extends BaseController
     {
         DB::beginTransaction();
         try{
-            // $id = $request->user_id;
-            
-            // $token = PersonalAccessToken::findToken($hashedTooken);
+            $auth_check = auth('sanctum')->user();
+            if(empty($auth_check)){
+                return $this->sendError("Token Missing!",'error',404);
+            }
             $id  = auth('sanctum')->user()->id;
             $user_data = User::find($id);
             $user_profile_data = UserProfile::where("user_id",$id)->first();
@@ -98,8 +122,8 @@ class RegisterController extends BaseController
         }catch(\Exception $e)
         {
             DB::rollback();
-            return $this->sendError('error', "Something Went Wrong!",404);
-            // return Redirect()->back()->with('error',$e->getMessage(),404)->withInput();
+            return response()->json(['success'=>false,'message' => $e->getMessage()]);
+            // return $this->sendError('error', "Something Went Wrong!",404);
         }
         DB::commit();
         return $this->sendResponse($user_profile_data, 'User register successfully.',200);
@@ -112,12 +136,17 @@ class RegisterController extends BaseController
      */
     public function login(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+   
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors(),400);       
+        }
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
             $user = Auth::user(); 
             $success['token'] =  $user->createToken('MyApp')->plainTextToken; 
-            // $success['full_name'] =  $user->full_name;
-            // $success['email'] =  $user->email;
-            // $success['role_id'] =  $user->role_id;
             $user_data = User::select('full_name','email','role_id')->where('id',$user->id)->with("roles")->first();
 
             return $this->sendResponse([$success,$user_data], 'User login successfully.',200);
