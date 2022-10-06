@@ -19,4 +19,8 @@ class BrandCultureQuestion extends Model
     {
         return $this->hasMany(BrandCultureCategory::class, 'id', 'brand_culture_category_id');
     }
+    public function sub_category()
+    {
+        return $this->belongsTo(BrandCultureCategory::class, 'brand_culture_category_id', 'id');
+    }
 }

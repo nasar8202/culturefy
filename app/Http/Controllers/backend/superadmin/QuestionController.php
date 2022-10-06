@@ -12,19 +12,19 @@ class QuestionController extends Controller
 {
     public function questionForm()
     {
-        DB::beginTransaction();
+
         try{
             $brandParentCategory = BrandCultureCategory::where(['status'=>1,'parent_id'=>0])->get();
-            $brandChildCategories = BrandCultureCategory::where(['status'=>1])->get();
-
+            
+            $brandChildCategories = BrandCultureCategory::where('status',1)->where('parent_id','!=',0)->get();
+            
         }catch(\Exception $e)
         {
-            DB::rollback();
+
             return Redirect()->back()
                 ->with('error',$e->getMessage() )
                 ->withInput();
         }
-        DB::commit();
 
         return view('backend.superadmin.questions.create',compact('brandChildCategories','brandParentCategory'));
     }
@@ -57,7 +57,7 @@ class QuestionController extends Controller
         //$validated = $request->validated();
 
          try{
-             $viewQuestions = BrandCultureQuestion::with('parent_category')->where('status',1)->get();
+             $viewQuestions = BrandCultureQuestion::with('sub_category')->where('status',1)->get();
 // dd($viewQuestions);
          }catch(\Exception $e)
          {
@@ -77,8 +77,10 @@ class QuestionController extends Controller
         try{
             $BrandCultureQuestion = BrandCultureQuestion::where('id',$id)->first();
            // dd($BrandCultureQuestion->brand_culture_category_id);
-            $brandCategories = BrandCultureCategory::where('id',$BrandCultureQuestion->brand_culture_category_id)->get();
-// dd($brandCategories);
+           $brandParentCategory = BrandCultureCategory::where(['status'=>1,'parent_id'=>0])->get();
+            
+            $brandChildCategories = BrandCultureCategory::where('status',1)->where('parent_id','!=',0)->get();;
+
         }catch(\Exception $e)
         {
             DB::rollback();
@@ -88,7 +90,7 @@ class QuestionController extends Controller
         }
         DB::commit();
 
-        return view('backend.superadmin.questions.editQuestion',compact('BrandCultureQuestion','brandCategories'));
+        return view('backend.superadmin.questions.editQuestion',compact('BrandCultureQuestion','brandParentCategory','brandChildCategories'));
     }
 
     public function update(storeQuestion $request, $id)
@@ -111,5 +113,21 @@ class QuestionController extends Controller
         }
         DB::commit();
         return redirect()->route("viewQuestions")->with('success','Question updated Successfully');
+    }
+    public function deleteQuestion($id)
+    {
+        DB::beginTransaction();
+        try{
+            $delete  = BrandCultureQuestion::where('id',$id)->delete();
+        }catch(\Exception $e)
+        {
+            DB::rollback();
+
+            return Redirect()->back()
+                ->with('error',$e->getMessage() )
+                ->withInput();
+        }
+        DB::commit();
+        return redirect()->route("viewQuestions")->with('success','Question Deleted Successfully');
     }
 }

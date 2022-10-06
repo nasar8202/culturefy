@@ -6,6 +6,7 @@ use App\Http\Controllers\backend\admin\AdminDashboardController;
 use App\Http\Controllers\backend\superadmin\SuperAdminDashboardController;
 use App\Http\Controllers\backend\superadmin\CategoryController;
 use App\Http\Controllers\backend\superadmin\QuestionController;
+use App\Http\Controllers\backend\superadmin\AnswerController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -52,7 +53,7 @@ Route::group(['prefix' => 'superadmin','middleware'=>['auth','superadmin']], fun
     // sub category
     Route::get('/sub-category', [CategoryController::class,'subCategoryForm'])->name('subCategoryForm');
     Route::post('/sub-category', [CategoryController::class,'storeSubCategory'])->name('storeSubCategory');
-
+    Route::get('/delete-categ/{id}',  [CategoryController::class,'deleteCateegory'])->name('deleteCateegory');
 
 
     // category code end
@@ -64,10 +65,15 @@ Route::group(['prefix' => 'superadmin','middleware'=>['auth','superadmin']], fun
     Route::get('/view-questions', [QuestionController::class,'viewQuestions'])->name('viewQuestions');
     Route::get('/edit-question/{id}',  [QuestionController::class,'EditQuestionForm'])->name('EditQuestionForm');
     Route::post('/update-question/{id}',  [QuestionController::class,'update'])->name('updateQuestion');
-
+    Route::get('/delete-question/{id}',  [QuestionController::class,'deleteQuestion'])->name('deleteQuestion');
 
     // Questions code end
 
+    // answer code start
+
+    Route::get('/answerForm', [AnswerController::class,'answerForm'])->name('answerForm');
+    Route::post('/add-answer', [AnswerController::class,'storeAnswer'])->name('storeAnswer');
+    Route::get('/view-answer', [AnswerController::class,'viewAnswer'])->name('viewAnswer');
 
 });
 

@@ -18,14 +18,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>View Questions </h3>
+                <h3>View Answers </h3>
 
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('superadmin') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">View Questions  </li>
+                        <li class="breadcrumb-item active" aria-current="page">View Answers  </li>
                     </ol>
                 </nav>
             </div>
@@ -38,13 +38,13 @@
                 <div
                     class="card-header border-bottom d-flex justify-content-between align-items-center">
                     <h4 class="card-title d-flex">
-                        <i class="bx bx-check font-medium-5 pl-25 pr-75"></i>View Questions
+                        <i class="bx bx-check font-medium-5 pl-25 pr-75"></i>View Answers
                     </h4>
                     <ul class="list-inline d-flex mb-0">
                         <li class="d-flex align-items-center">
                             <i class="bx bx-check-circle font-medium-3 me-50"></i>
                             <div class="buttons">
-                                <a href="{{ route('questionForm') }}" class="btn btn-primary">Add New Question</a>
+                                <a href="{{ route('answerForm') }}" class="btn btn-primary">Add New Answers</a>
                             </div>
                         </li>
 
@@ -57,8 +57,8 @@
                     <thead>
                         <tr>
                             <th>S.#</th>
-                            <th>Category</th>
-                            <th>Questions</th>
+                            <th>Question</th>
+                            <th>Answer</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -67,16 +67,16 @@
                         @php
                             $i = 1;
                         @endphp
-                        @forelse ($viewQuestions as $viewQuestion )
+                        @forelse ($viewAnswer as $Answer )
                         <tr>
                             <td>{{ $i++ }}</td>
 
-                            <td>{{ $viewQuestion->sub_category['category_name']??'' }}</td>
-                            <td>{{ $viewQuestion['question'] }}</td>
+                            <td>{{ $Answer->parent_question['question']??'' }}</td>
+                            <td>{{ $Answer['answer'] }}</td>
 
                             <td>
-                                <a href="{{ route('EditQuestionForm',$viewQuestion['id'] )}} "><span class="badge bg-primary">Edit</span></a>
-                                <a href="{{ route('deleteQuestion',$viewQuestion['id'] )}} "><span class="badge bg-danger">Delete</span></a>
+                                <a href="{{ route('EditQuestionForm',$Answer['id'] )}} "><span class="badge bg-primary">Edit</span></a>
+                                <a href="{{ route('deleteQuestion',$Answer['id'] )}} "><span class="badge bg-danger">Delete</span></a>
                             </td>
 
                         </tr>

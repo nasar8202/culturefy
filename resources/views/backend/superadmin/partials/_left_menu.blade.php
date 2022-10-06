@@ -29,11 +29,9 @@
             <span>Manage Categories</span>
         </a>
         <ul class="submenu ">
+           
             <li class="submenu-item ">
-                <a href="{{ route('categoryForm') }}">Add Category</a>
-            </li>
-            <li class="submenu-item ">
-                <a href="{{ route('subCategoryForm') }}">Add Sub Category</a>
+                <a href="{{ route('subCategoryForm') }}">Add  Category</a>
             </li>
             <li class="submenu-item ">
                 <a href="{{ route('viewCategories') }}">View Category</a>
@@ -54,7 +52,24 @@
             <li class="submenu-item ">
                 <a href="{{ route('viewQuestions') }}">View Questions</a>
             </li>
+           
 
+        </ul>
+    </li>
+
+    <li class="sidebar-item  has-sub">
+        <a href="#" class='sidebar-link'>
+            <i class="bi bi-stack"></i>
+            <span>Manage Answers</span>
+        </a>
+        <ul class="submenu ">
+            <li class="submenu-item ">
+                <a href="{{ route('answerForm') }}">Add Answer</a>
+            </li>
+            <li class="submenu-item ">
+                <a href="{{ route('viewAnswer') }}">View Answers</a>
+            </li>
+           
         </ul>
     </li>
 

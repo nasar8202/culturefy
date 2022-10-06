@@ -17,14 +17,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Category Form </h3>
+                <h3>Answer Form </h3>
 
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('superadmin') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Category Form </li>
+                        <li class="breadcrumb-item active" aria-current="page">Answer Form </li>
                     </ol>
                 </nav>
             </div>
@@ -38,25 +38,28 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Add Category</h4>
+                        <h4 class="card-title">Add Answer</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                            <form class="form" action="{{ route('storeSubCategory') }}" method="POST" enctype="multipart/form-data">
+                            <form class="form" action="{{ route('storeAnswer') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="row">
                                     <div class="col-md-12 mb-4 col-12">
-                                        <h6>Select Main Category<small class="text-secondary"> (Optional : If You Are Making Parent Category)</small> </h6>
+                                        <h6>Select Question </h6>
 
                                         <fieldset class="form-group">
                                             <select class="form-select" name="id" id="basicSelect">
-                                                <option value="0" aria-readonly="">Select Parent Category </option>
-                                                @if ((count($brandCategories)) == 0)
+                                                <option value="" aria-readonly="">Select Question</option>
+                                                @if ((count($BrandCultureQuestion)) == 0)
                                                 <option value="" aria-readonly="" disabled>No Category Found!</option>
                                                 @else
-                                                @foreach ($brandCategories as $category )
-                                                <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                                @foreach ($BrandCultureQuestion as $question )
+                                                
+                                               
+                                                 <option value="{{ $question->id }}">{{ $question->question ?? 'No Category'  }}</option>
+                                              
                                                 @endforeach
                                                 @endif
 
@@ -65,13 +68,15 @@
                                         </fieldset>
                                     </div>
                                     <div class="col-md-12 mb-4 col-12">
-                                        <div class="form-group">
-                                            <label for="squareText">Add Category</label>
-                                            <input type="text" id="category" name="category_name" class="form-control square"
-                                                placeholder="Add Category">
+                                        <div class="form-group with-title mb-3">
+                                            <textarea class="form-control" id="exampleFormControlTextarea1"
+                                                rows="3" name="answer"></textarea>
+                                            <label>Type Your Answer</label>
                                         </div>
-                                        @if ($errors->has('category_name'))
-                                        <span class="text-danger">{{ $errors->first('category_name') }}</span>
+                                    </div>
+
+                                        @if ($errors->has('answer'))
+                                        <span class="text-danger">{{ $errors->first('answer') }}</span>
                                         @endif
                                     </div>
                                     <div class="col-12 d-flex justify-content-end">

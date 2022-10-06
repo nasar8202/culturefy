@@ -109,13 +109,22 @@ class CategoryController extends Controller
 
     public function update(StoreCategory $request, $id)
     {
+        // dd($request->all());
         $validated = $request->validated();
 
         DB::beginTransaction();
         try{
+            
+           $cat =  BrandCultureCategory::where('id',$request->parent_id)->first();
+         if($cat->category_name == $request->category_name){
+            return redirect()->route('viewCategories')->with('error','You Cant Add Same Category Into Parent Category!');
+         }
+         else{
+            $input['parent_id'] = $request->parent_id;
             $input['category_name'] = $request->category_name;
             BrandCultureCategory::where('id',$id)->update($input);
 
+         }
         }catch(\Exception $e)
         {
             DB::rollback();
@@ -126,5 +135,21 @@ class CategoryController extends Controller
         }
         DB::commit();
         return redirect()->route("viewCategories")->with('success','Category updated Successfully');
+    }
+    public function deleteCateegory($id)
+    {
+        DB::beginTransaction();
+        try{
+            $delete  = BrandCultureCategory::where('id',$id)->delete();
+        }catch(\Exception $e)
+        {
+            DB::rollback();
+
+            return Redirect()->back()
+                ->with('error',$e->getMessage() )
+                ->withInput();
+        }
+        DB::commit();
+        return redirect()->route("viewCategories")->with('success','Category Deleted Successfully');
     }
 }
