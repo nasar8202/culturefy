@@ -51,7 +51,9 @@
             <li class="submenu-item ">
                 <a href="{{ route('questionForm') }}">Add Question</a>
             </li>
-
+            <li class="submenu-item ">
+                <a href="{{ route('viewQuestions') }}">View Questions</a>
+            </li>
 
         </ul>
     </li>

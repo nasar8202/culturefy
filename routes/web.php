@@ -61,6 +61,10 @@ Route::group(['prefix' => 'superadmin','middleware'=>['auth','superadmin']], fun
     // Questions code start
     Route::get('/question', [QuestionController::class,'questionForm'])->name('questionForm');
     Route::post('/add-question', [QuestionController::class,'storeQuestion'])->name('storeQuestion');
+    Route::get('/view-questions', [QuestionController::class,'viewQuestions'])->name('viewQuestions');
+    Route::get('/edit-question/{id}',  [QuestionController::class,'EditQuestionForm'])->name('EditQuestionForm');
+    Route::post('/update-question/{id}',  [QuestionController::class,'update'])->name('updateQuestion');
+
 
     // Questions code end
 
