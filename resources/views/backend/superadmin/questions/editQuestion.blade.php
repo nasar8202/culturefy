@@ -51,13 +51,26 @@
                                             <h6>Select Parent Category</h6>
 
                                             <fieldset class="form-group">
-                                                <select class="form-select" name="brand_culture_category_id" id="basicSelect">
-                                                    <option value="" aria-readonly="">Select Category</option>
-
-                                                    @foreach ($brandCategories as $category )
-                                                    <option selected value="{{ $category->id }}"  >{{  $category->category_name ?? '';  }}</option>
+                                                <select class="form-select" name="id" id="basicSelect">
+                                                    <option value="" aria-readonly="">Select Main Category</option>
+                                                    @if ((count($brandParentCategory)) == 0)
+                                                    <option value="" aria-readonly="" disabled>No Category Found!</option>
+                                                    @else
+                                                    @foreach ($brandParentCategory as $category )
+                                                    
+                                                    <optgroup value="{{ $category->id }}" label="{{ $category->category_name }}">{{ $category->category_name }}</optgroup>
+                                                  
+                                                    @foreach($brandChildCategories as $child)
+                                                    @if($category->id == $child->parent_id)
+                                                     <option value="{{ $child->id }}"@if($BrandCultureQuestion->brand_culture_category_id == $child->id) selected @endif >{{ $child->category_name ?? 'No Category'  }}</option>
+                                                  
+                                                     @endif
+                                                   @endforeach
                                                     @endforeach
-
+                                                    @endif
+    
+    
+                                                </select>
                                                 </select>
                                             </fieldset>
                                         </div>

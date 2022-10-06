@@ -71,12 +71,12 @@
                         <tr>
                             <td>{{ $i++ }}</td>
 
-                            <td>{{ $viewQuestion->parent_category }}</td>
+                            <td>{{ $viewQuestion->sub_category['category_name']??'' }}</td>
                             <td>{{ $viewQuestion['question'] }}</td>
 
                             <td>
                                 <a href="{{ route('EditQuestionForm',$viewQuestion['id'] )}} "><span class="badge bg-primary">Edit</span></a>
-                                <a href="{{ route('Delete',$viewQuestion['id'] )}} "><span class="badge bg-danger">Delete</span></a>
+                                <a href="{{ route('deleteQuestion',$viewQuestion['id'] )}} "><span class="badge bg-danger">Delete</span></a>
                             </td>
 
                         </tr>
