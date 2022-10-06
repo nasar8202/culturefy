@@ -1,8 +1,8 @@
 <ul class="menu">
-    <li class="sidebar-title">Menu</li>
+    <li class="sidebar-title">Menus</li>
 
     <li class="sidebar-item active ">
-        <a href="index.html" class='sidebar-link'>
+        <a href="{{ route('dashboard') }}" class='sidebar-link'>
             <i class="bi bi-grid-fill"></i>
             <span>Dashboard</span>
         </a>
@@ -29,7 +29,7 @@
             <span>Manage Categories</span>
         </a>
         <ul class="submenu ">
-           
+
             <li class="submenu-item ">
                 <a href="{{ route('subCategoryForm') }}">Add  Category</a>
             </li>
