@@ -56,8 +56,15 @@
                                                 <option value="" aria-readonly="" disabled>No Category Found!</option>
                                                 @else
                                                 @foreach ($brandParentCategory as $category )
-                                                <optgroup label="Swedish Cars">
-                                                <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                                
+                                                <optgroup value="{{ $category->id }}" label="{{ $category->category_name }}">{{ $category->category_name }}</optgroup>
+                                              
+                                                @foreach($brandChildCategories as $child)
+                                                @if($category->id == $child->parent_id)
+                                                 <option value="{{ $child->id }}">{{ $child->category_name ?? 'No Category'  }}</option>
+                                              
+                                                 @endif
+                                               @endforeach
                                                 @endforeach
                                                 @endif
 
