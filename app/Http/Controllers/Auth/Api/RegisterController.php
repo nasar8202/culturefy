@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth\Api;
 
 use App\Models\User;
 use App\Models\UserProfile;
+use App\Exports\UsersExport;
+use App\Imports\UsersImport;
 use App\Models\BusinessInfo;
 use App\Models\EmployeeInfo;
 use Illuminate\Http\Request;
@@ -11,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 use Laravel\Sanctum\PersonalAccessToken;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Auth\Api\BaseController;
@@ -65,6 +68,10 @@ class RegisterController extends BaseController
                 $employee_info->exit_interview = $request->exit_interview;
                 $employee_info->save();
             }
+            $user_profile = new UserProfile;
+            $user_profile->user_id =  $user->id;
+            $user_profile->email = $user->email;
+            $user_profile->save();
 
             $user_data = User::select('full_name','email','role_id')->where('id',$user->id)->with("roles")->first();
         }catch(\Exception $e)
@@ -97,7 +104,12 @@ class RegisterController extends BaseController
             $user_profile->email = $user_data->email;
             $user_profile->first_name = $request->first_name;
             $user_profile->last_name = $request->last_name;
-            $user_profile->date_of_birth = $request->date_of_birth;
+            if($request->date_of_birth){
+                $date =  date("Y-m-d",strtotime($request->date_of_birth));
+                $user_profile->date_of_birth = $date;
+            }else{
+                $user_profile->date_of_birth = $request->date_of_birth;
+            }
             $user_profile->phone = $request->phone;
             $user_profile->address = $request->address;
             $user_profile->country = $request->country;
@@ -106,6 +118,9 @@ class RegisterController extends BaseController
             $user_profile->bio = $request->bio;
             if(isset($user_profile->gender)){
                 $user_profile->gender = ucwords($request->gender);
+            }
+            else{
+                $user_profile->gender = $request->gender;
             }
             $user_profile->skills = $request->skills;
             $user_profile->website = $request->website;
@@ -155,4 +170,36 @@ class RegisterController extends BaseController
             return $this->sendError('Unauthorised.', ['error'=>'Creadentials does not match'],400);
         } 
     }
+
+    // import export
+    // public function importExportView()
+    // {
+    //    return view('import');
+    // }
+     
+    /**
+    * @return \Illuminate\Support\Collection
+    */
+    public function export() 
+    {
+        return Excel::download(new UsersExport, 'users.xlsx');
+    }
+     
+    /**
+    * @return \Illuminate\Support\Collection
+    */
+    public function import(Request $request) 
+    {
+        $validator = Validator::make($request->all(), [
+            'file' => 'required|mimes:csv,txt',
+        ]);
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors(),400);       
+        }
+        Excel::import(new UsersImport,request()->file('file'));
+        return response()->json(['success'=>true,'message'=>'Users register successfully.']);
+    }
+    // import export
+
+
 }
