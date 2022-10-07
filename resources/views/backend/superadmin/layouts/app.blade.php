@@ -52,7 +52,8 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="index.html"><img src="{{URL::asset('backend/admin/assets/images/logo/logo.png')}}" alt="Logo" srcset=""></a>
+                            {{-- <img src="{{URL::asset('backend/admin/assets/images/logo/logo.png')}}" alt="Logo" srcset=""> --}}
+                            <a href="{{ route('dashboard') }}">{{ Auth::user()->full_name }}</a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
