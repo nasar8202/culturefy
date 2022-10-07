@@ -14,9 +14,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Session;
 use Laravel\Sanctum\PersonalAccessToken;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Auth\Api\BaseController;
+use Maatwebsite\Excel\Validators\ValidationException;
 
 class RegisterController extends BaseController
 {
@@ -190,14 +192,19 @@ class RegisterController extends BaseController
     */
     public function import(Request $request) 
     {
-        $validator = Validator::make($request->all(), [
-            'file' => 'required|mimes:csv,txt',
-        ]);
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors(),400);       
+        try {
+            $validator = Validator::make($request->all(), [
+                'file' => 'required|mimes:csv,txt',
+            ]);
+            if($validator->fails()){
+                return $this->sendError('Validation Error.', $validator->errors(),400);       
+            }
+            Excel::import(new UsersImport,request()->file('file'));
+            return response()->json(['success'=>true,'message'=>'Users register successfully.']);
+
+        } catch (ValidationException $e) {
+            return response()->json(['success'=>false,'message' => $e->getMessage()]);
         }
-        Excel::import(new UsersImport,request()->file('file'));
-        return response()->json(['success'=>true,'message'=>'Users register successfully.']);
     }
     // import export
 
