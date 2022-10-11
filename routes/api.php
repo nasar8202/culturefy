@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\Api\RegisterController;
+use App\Http\Controllers\backend\admin\AnswerController;
 use App\Http\Controllers\backend\admin\QuestionController;
 
 /*
@@ -20,11 +21,15 @@ Route::post('/details/update', [RegisterController::class, 'update']);
 Route::post('/login', [RegisterController::class, 'login']);
      
 Route::middleware('auth:sanctum')->group( function () {
-});
+
+    // users import export
     Route::get('/importExportView', [RegisterController::class, 'importExportView'])->name('importExportView');
     Route::get('/export', [RegisterController::class, 'export'])->name('export');
     Route::post('/import', [RegisterController::class, 'import'])->name('import');
-
-    // Questions
+    // users import export
+    
+    // Questions & Answers
     Route::get('/question', [QuestionController::class, 'index'])->name('questionGet');
-    // Questions
+    Route::post('/answer', [AnswerController::class, 'store'])->name('answerPost');
+    // Questions & Answers
+});
