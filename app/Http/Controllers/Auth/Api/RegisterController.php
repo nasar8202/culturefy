@@ -14,9 +14,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Session;
 use Laravel\Sanctum\PersonalAccessToken;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Auth\Api\BaseController;
+use Maatwebsite\Excel\Validators\ValidationException;
 
 class RegisterController extends BaseController
 {
@@ -190,16 +192,62 @@ class RegisterController extends BaseController
     */
     public function import(Request $request) 
     {
-        $validator = Validator::make($request->all(), [
-            'file' => 'required|mimes:csv,txt',
-        ]);
-        if($validator->fails()){
-            return $this->sendError('Validation Error.', $validator->errors(),400);       
+        try {
+            $validator = Validator::make($request->all(), [
+                'file' => 'required|mimes:csv,txt',
+            ]);
+            if($validator->fails()){
+                return $this->sendError('Validation Error.', $validator->errors(),400);       
+            }
+            Excel::import(new UsersImport,request()->file('file'));
+            return response()->json(['success'=>true,'message'=>'Users register successfully.']);
+
+        } catch (ValidationException $e) {
+            return response()->json(['success'=>false,'message' => $e->getMessage()]);
         }
-        Excel::import(new UsersImport,request()->file('file'));
-        return response()->json(['success'=>true,'message'=>'Users register successfully.']);
     }
     // import export
 
+    public function registerUsers(Request $request)
+    {
+        DB::beginTransaction();
+        try{
+            $input = $request->all();
+            // $input['status'] = 1;
+            // $input['password'] = Hash::make($input['password']);
+            // $success['token'] =  $user->createToken('MyApp')->plainTextToken;
+            foreach($input as $data){
+                $validator = Validator::make($data, [
+                    'full_name' => 'required',
+                    'email' => 'required|email|unique:users',
+                    'password' => 'required',
+                    'role_id' => 'required',
+                ]);
+           
+                if($validator->fails()){
+                    return $this->sendError('Validation Error.', $validator->errors(),400);       
+                }
+                $user = new User;
+                $user->full_name = $data['full_name'];
+                $user->email = $data['email'];
+                $user->password = Hash::make($data['password']);
+                $user->role_id = $data['role_id'];
+                $user->save();
+
+                $user_profile = new UserProfile;
+                $user_profile->user_id =  $user['id'];
+                $user_profile->email = $user['email'];
+                $user_profile->save();
+            }
+            
+        }catch(\Exception $e)
+        {
+            DB::rollback();
+            return response()->json(['success'=>false,'message' => $e->getMessage()]);
+            // return $this->sendError('error', "Something Went Wrong!",404);
+        }
+        DB::commit();
+        return $this->sendResponse('Success', 'Users register successfully.',200);
+    }
 
 }

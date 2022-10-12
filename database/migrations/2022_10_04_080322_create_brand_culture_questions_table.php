@@ -14,9 +14,9 @@ class CreateBrandCultureQuestionsTable extends Migration
     public function up()
     {
         Schema::create('brand_culture_questions', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->integer('brand_culture_category_id')->unsigned();
-            $table->string('question');
+            $table->longText('question');
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
             $table->softDeletes();
