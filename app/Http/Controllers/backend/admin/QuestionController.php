@@ -4,6 +4,7 @@ namespace App\Http\Controllers\backend\admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\BrandCultureCategory;
 use App\Models\BrandCultureQuestion;
 use App\Http\Controllers\Auth\Api\BaseController;
 
@@ -18,7 +19,7 @@ class QuestionController extends BaseController
     {
         try {
 
-            $question = BrandCultureQuestion::where('status',1)->with(["parent_category"])->get()->makeHidden(['created_at','updated_at','deleted_at','status']);
+            $question = BrandCultureQuestion::where('status',1)->with(["category"])->get()->makeHidden(['created_at','updated_at','deleted_at','status']);
 
             if(!$question->isEmpty())
             {

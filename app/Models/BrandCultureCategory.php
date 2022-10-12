@@ -27,6 +27,6 @@ class BrandCultureCategory extends Model
 
     public function parent_category()
     {
-        return $this->hasMany(self::class, 'id', 'parent_id');
+        return $this->hasMany(self::class, 'parent_id', 'id');
     }
 }

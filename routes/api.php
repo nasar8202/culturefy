@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\Api\RegisterController;
 use App\Http\Controllers\backend\admin\AnswerController;
 use App\Http\Controllers\backend\admin\QuestionController;
+use App\Http\Controllers\backend\admin\AdminDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,13 +24,24 @@ Route::post('/login', [RegisterController::class, 'login']);
 Route::middleware('auth:sanctum')->group( function () {
 
     // users import export
-    Route::get('/importExportView', [RegisterController::class, 'importExportView'])->name('importExportView');
-    Route::get('/export', [RegisterController::class, 'export'])->name('export');
-    Route::post('/import', [RegisterController::class, 'import'])->name('import');
+
+    Route::get('/importExportView', [RegisterController::class, 'importExportView']);
+    Route::get('/export', [RegisterController::class, 'export']);
+    Route::post('/users/import', [RegisterController::class, 'import']);
+    Route::post('/users/add', [RegisterController::class, 'registerUsers']);
+
     // users import export
+
+    // categories & sub categories
+
+    Route::get('/categories', [AdminDashboardController::class, 'categories']);
+
+    // categories & sub categories
     
     // Questions & Answers
-    Route::get('/question', [QuestionController::class, 'index'])->name('questionGet');
-    Route::post('/answer', [AnswerController::class, 'store'])->name('answerPost');
+
+    Route::get('/question', [QuestionController::class, 'index']);
+    Route::post('/answer', [AnswerController::class, 'store']);
+
     // Questions & Answers
 });

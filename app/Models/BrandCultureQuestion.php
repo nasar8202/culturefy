@@ -16,12 +16,29 @@ class BrandCultureQuestion extends Model
         'question'
     ];
 
-    public function parent_category()
-    {
-        return $this->hasOne(BrandCultureCategory::class, 'id', 'brand_culture_category_id');
-    }
+    // public function parent_category()
+    // {
+    //     return $this->hasOne(BrandCultureCategory::class, 'id', 'brand_culture_category_id');
+    // }
     public function sub_category()
     {
         return $this->belongsTo(BrandCultureCategory::class, 'brand_culture_category_id', 'id');
     }
+    public function category()
+    {
+        return $this->hasOne(BrandCultureCategory::class, 'id', 'brand_culture_category_id');
+    }
+    public function parent_category()
+    {
+        return $this->hasMany(self::class, 'id', 'parent_id');
+    }
+    
+    // public function parent()
+    // {
+    //     return $this->belongsTo(BrandCultureCategory::class, 'parent_id');
+    // }
+    // public function sub()
+    // {
+    //     return $this->hasOne(BrandCultureCategory::class, 'parent_id');
+    // }
 }
