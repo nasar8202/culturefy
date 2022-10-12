@@ -21,7 +21,7 @@ class CategoryController extends Controller
     }
 
     public function store(StoreCategory $request){
-        $validated = $request->validated();
+        // $validated = $request->validated();
 
         DB::beginTransaction();
         try{
@@ -109,18 +109,20 @@ class CategoryController extends Controller
 
     public function update(StoreCategory $request, $id)
     {
-        // dd($request->all());
+        // dd($id);
         $validated = $request->validated();
 
+      
         DB::beginTransaction();
         try{
             
-           $cat =  BrandCultureCategory::where('id',$request->parent_id)->first();
+            $cat =  BrandCultureCategory::where('id',$id)->first();
+      
          if($cat->category_name == $request->category_name){
             return redirect()->route('viewCategories')->with('error','You Cant Add Same Category Into Parent Category!');
          }
          else{
-            $input['parent_id'] = $request->parent_id;
+            $input['parent_id'] = $request->parent_id??0;
             $input['category_name'] = $request->category_name;
             BrandCultureCategory::where('id',$id)->update($input);
 

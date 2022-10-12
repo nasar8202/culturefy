@@ -24,4 +24,9 @@ class BrandCultureQuestion extends Model
     {
         return $this->belongsTo(BrandCultureCategory::class, 'brand_culture_category_id', 'id');
     }
+
+    public function parent()
+    {
+        return $this->belongsTo(BrandCultureCategory::class, 'id', 'parent_id');
+    }
 }

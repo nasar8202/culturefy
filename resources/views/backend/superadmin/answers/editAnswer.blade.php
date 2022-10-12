@@ -1,5 +1,5 @@
 @extends('backend.superadmin.layouts.app')
-@section('title','Edit Question Form')
+@section('title','Edit Answer Form')
 @section('secton')
 <header class="mb-3">
     <a href="#" class="burger-btn d-block d-xl-none">
@@ -17,14 +17,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Edit Question Form </h3>
+                <h3>Edit Answer Form </h3>
 
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('superadmin') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Edit Question Form </li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit Answer Form </li>
                     </ol>
                 </nav>
             </div>
@@ -38,34 +38,32 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Edit Question</h4>
+                        <h4 class="card-title">Edit Answer</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                            <form class="form" action="{{ route('updateQuestion',$BrandCultureQuestion->id) }}" method="POST" enctype="multipart/form-data">
+                            <form class="form" action="{{ route('updateAnswer',$BrandCultureAnswer->id) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="row">
                                     <div class="col-md-12 mb-4 col-12">
                                         <div class="col-md-12 mb-4 col-12">
-                                            <h6>Select Parent Category</h6>
+                                            <h6>Select Question</h6>
 
                                             <fieldset class="form-group">
-                                                <select class="form-select" name="id" id="basicSelect">
-                                                    <option value="" aria-readonly="">Select Main Category</option>
-                                                    @if ((count($brandParentCategory)) == 0)
+                                                <select class="form-select" name="brand_culture_question_id" id="basicSelect">
+                                                    <option value="" disabled aria-readonly="">Select Question</option>
+                                                    @if ((count($BrandCultureQuestion)) == 0)
                                                     <option value="" aria-readonly="" disabled>No Category Found!</option>
                                                     @else
-                                                    @foreach ($brandParentCategory as $category )
                                                     
-                                                    <optgroup value="{{ $category->id }}" label="{{ $category->category_name }}">{{ $category->category_name }}</optgroup>
                                                   
-                                                    @foreach($brandChildCategories as $child)
-                                                    @if($category->id == $child->parent_id)
-                                                     <option value="{{ $child->id }}"@if($BrandCultureQuestion->brand_culture_category_id == $child->id) selected @endif >{{ $child->category_name ?? 'No Category'  }}</option>
+                                                    @foreach($BrandCultureQuestion as $child)
                                                   
-                                                     @endif
-                                                   @endforeach
+                                                     <option value="{{ $child->id }}"@if($BrandCultureAnswer->brand_culture_question_id == $child->id) selected @endif >{{ $child->question ?? 'No Question'  }}</option>
+                                                  
+                                                    
+                                      
                                                     @endforeach
                                                     @endif
     
@@ -78,14 +76,14 @@
                                         <div class="col-md-12 mb-4 col-12">
                                             <div class="form-group with-title mb-3">
                                                 <textarea class="form-control" id="exampleFormControlTextarea1"
-                                                    rows="3" name="question">{{ $BrandCultureQuestion->question }}</textarea>
-                                                <label>Type Your Question</label>
+                                                    rows="3" name="answer">{{ $BrandCultureAnswer->answer }}</textarea>
+                                                <label>Type Your Answer</label>
                                             </div>
                                         </div>
 
-                                            @if ($errors->has('question'))
-                                            <span class="text-danger">{{ $errors->first('question') }}</span>
-                                            @endif
+                                        @if ($errors->has('answer'))
+                                        <span class="text-danger">{{ $errors->first('answer') }}</span>
+                                        @endif
                                         </div>
                                     </div>
                                     <div class="col-12 d-flex justify-content-end">

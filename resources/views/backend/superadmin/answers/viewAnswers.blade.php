@@ -64,19 +64,16 @@
                     </thead>
 
                     <tbody>
-                        @php
-                            $i = 1;
-                        @endphp
-                        @forelse ($viewAnswer as $Answer )
+                        @forelse ($viewAnswer as $key => $Answer )
                         <tr>
-                            <td>{{ $i++ }}</td>
+                            <td>{{ ++$key }}</td>
 
                             <td>{{ $Answer->parent_question['question']??'' }}</td>
                             <td>{{ $Answer['answer'] }}</td>
 
                             <td>
                                 <a href="{{ route('editAnswer',$Answer['id'] )}} "><span class="badge bg-primary">Edit</span></a>
-                                <a href="{{ route('deleteQuestion',$Answer['id'] )}} "><span class="badge bg-danger">Delete</span></a>
+                                <a href="{{ route('deleteAnswer',$Answer['id'] )}} "><span class="badge bg-danger">Delete</span></a>
                             </td>
 
                         </tr>

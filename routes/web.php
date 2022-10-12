@@ -74,7 +74,9 @@ Route::group(['prefix' => 'superadmin','middleware'=>['auth','superadmin']], fun
     Route::get('/answerForm', [AnswerController::class,'answerForm'])->name('answerForm');
     Route::post('/add-answer', [AnswerController::class,'storeAnswer'])->name('storeAnswer');
     Route::get('/view-answer', [AnswerController::class,'viewAnswer'])->name('viewAnswer');
-    Route::get('/edit-answer/{id}',  [AnswerController::class,''])->name('editAnswer');
+    Route::get('/edit-answer/{id}',  [AnswerController::class,'editAnswerForm'])->name('editAnswer');
+    Route::post('/update-answer/{id}',  [AnswerController::class,'updateAnswer'])->name('updateAnswer');
+    Route::get('/delete-answer/{id}',  [AnswerController::class,'deleteAnswer'])->name('deleteAnswer');
    });
 
 Auth::routes();
