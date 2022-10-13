@@ -39,7 +39,7 @@ class AdminDashboardController extends BaseController
             }
         }
         catch (\Exception $e) {
-            return response()->json(['success'=>false,'message' => $e->getMessage()]);
+            return response()->json(['success'=>false,'message' => $e->getMessage()],500);
         }
     }
 

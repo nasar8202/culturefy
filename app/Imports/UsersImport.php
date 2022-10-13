@@ -64,7 +64,7 @@ class UsersImport implements ToModel , WithHeadingRow
         }catch(\Exception $e)
         {
             DB::rollback();
-            return response()->json(['success'=>false,'message' => $e->getMessage()]);
+            return response()->json(['success'=>false,'message' => $e->getMessage()],500);
         }
         DB::commit();
         return $user_profile;

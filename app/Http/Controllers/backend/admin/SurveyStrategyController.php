@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\backend\admin;
 
 use Illuminate\Http\Request;
+use App\Models\SurveyStrategy;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\BrandCultureCategory;
-use App\Models\BrandCultureQuestion;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\Api\SurveyStrategyRequest;
 use App\Http\Controllers\Auth\Api\BaseController;
 
-class QuestionController extends BaseController
+class SurveyStrategyController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -17,27 +19,7 @@ class QuestionController extends BaseController
      */
     public function index()
     {
-        try {
-
-            $question = BrandCultureQuestion::where('status',1)->with(["category"])->get()->makeHidden(['created_at','updated_at','deleted_at','status']);
-
-            if(!$question->isEmpty())
-            {
-            return $this->sendResponse($question, 'Data Fetched successfully.',200);
-            }
-            else
-            {
-                return $this->sendError(
-                    'Invalid.',
-                    ['error' => 'Record Not Found'],
-                    200
-                );
-            }
-        }
-        catch (\Exception $e) {
-            return response()->json(['success'=>false,'message' => $e->getMessage()],500);
-        }
-        
+        //
     }
 
     /**
@@ -45,9 +27,28 @@ class QuestionController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        DB::beginTransaction();
+        try{
+            $validator = Validator::make($request->all(), [
+                'survey_data' => 'required|json',
+            ]);
+       
+            if($validator->fails()){
+                return $this->sendError('Validation Error.', $validator->errors(),400);       
+            }
+            $survey = new SurveyStrategy;
+            $survey->survey_data = $request->survey_data;
+            $survey->save();
+
+        }catch(\Exception $e)
+        {
+            DB::rollback();
+            return response()->json(['success'=>false,'message' => $e->getMessage()],500);
+        }
+        DB::commit();
+        return $this->sendResponse($survey, 'Strategy Submit successfully.',200);
     }
 
     /**
@@ -58,8 +59,9 @@ class QuestionController extends BaseController
      */
     public function store(Request $request)
     {
-        //
+         //
     }
+    
 
     /**
      * Display the specified resource.

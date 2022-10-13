@@ -59,7 +59,7 @@ class AnswerController extends BaseController
         }catch(\Exception $e)
         {
             DB::rollback();
-            return response()->json(['success'=>false,'message' => $e->getMessage()]);
+            return response()->json(['success'=>false,'message' => $e->getMessage()],500);
             // return $this->sendError('error', "Something Went Wrong!",404);
         }
         DB::commit();

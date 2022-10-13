@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\Api\RegisterController;
 use App\Http\Controllers\backend\admin\AnswerController;
 use App\Http\Controllers\backend\admin\QuestionController;
 use App\Http\Controllers\backend\admin\AdminDashboardController;
+use App\Http\Controllers\backend\admin\SurveyStrategyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +21,14 @@ use App\Http\Controllers\backend\admin\AdminDashboardController;
 Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/details/update', [RegisterController::class, 'update']);
 Route::post('/login', [RegisterController::class, 'login']);
-     
+
 Route::middleware('auth:sanctum')->group( function () {
+    
+    // business and employee details
+    
+    Route::post('/business/details', [RegisterController::class, 'BusinessDetails']);
+
+    // business and employee details
 
     // users import export
 
@@ -42,6 +49,13 @@ Route::middleware('auth:sanctum')->group( function () {
 
     Route::get('/question', [QuestionController::class, 'index']);
     Route::post('/answer', [AnswerController::class, 'store']);
-
+    
     // Questions & Answers
+    
+    // Survey Strategy
+
+    Route::post('/survey/add', [SurveyStrategyController::class, 'create']);
+
+    // Survey Strategy
+
 });

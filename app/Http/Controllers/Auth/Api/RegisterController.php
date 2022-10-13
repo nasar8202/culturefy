@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth\Api;
 
 use App\Models\User;
+use App\Traits\ImageTrait;
 use App\Models\UserProfile;
 use App\Exports\UsersExport;
 use App\Imports\UsersImport;
@@ -22,6 +23,7 @@ use Maatwebsite\Excel\Validators\ValidationException;
 
 class RegisterController extends BaseController
 {
+    use ImageTrait;
       /**
      * Register api
      *
@@ -47,29 +49,6 @@ class RegisterController extends BaseController
             $user = User::create($input);
             $success['token'] =  $user->createToken('MyApp')->plainTextToken;
 
-            if($request->role_id == 2){
-                $business_info = new BusinessInfo;
-                $business_info->user_id = $user->id;
-                $business_info->business_name = $request->business_name;
-                $business_info->business_describe = $request->business_describe;
-                $business_info->known_as = $request->known_as;
-                $business_info->business_operating_start_date = $request->business_operating_start_date;
-                $business_info->business_history_describe = $request->business_history_describe;
-                $business_info->hr_point_person = $request->hr_point_person;
-                $business_info->survey_result = $request->survey_result;
-                $business_info->kickoff_session = $request->kickoff_session;
-                $business_info->save();
-
-                $employee_info = new EmployeeInfo;
-                $employee_info->user_id = $user->id;
-                $employee_info->demographic_info = $request->demographic_info;
-                $employee_info->historical_employee_engagement = $request->historical_employee_engagement;
-                $employee_info->org_chart = $request->org_chart;
-                $employee_info->employe_handbook = $request->employe_handbook;
-                $employee_info->turnover_data = $request->turnover_data;
-                $employee_info->exit_interview = $request->exit_interview;
-                $employee_info->save();
-            }
             $user_profile = new UserProfile;
             $user_profile->user_id =  $user->id;
             $user_profile->email = $user->email;
@@ -79,11 +58,65 @@ class RegisterController extends BaseController
         }catch(\Exception $e)
         {
             DB::rollback();
-            return response()->json(['success'=>false,'message' => $e->getMessage()]);
+            return response()->json(['success'=>false,'message' => $e->getMessage()],500);
             // return $this->sendError('error', "Something Went Wrong!",404);
         }
         DB::commit();
         return $this->sendResponse([$success,$user_data], 'User register successfully.',200);
+    }
+    public function BusinessDetails(Request $request)
+    {
+        DB::beginTransaction();
+        try{
+            $auth_check = auth('sanctum')->user();
+            if(empty($auth_check)){
+                return $this->sendError("Token Missing!",'error',404);
+            }
+            $id  = auth('sanctum')->user()->id;
+            $user_data = User::find($id);
+            $business_detail = BusinessInfo::where("user_id",$id)->first();
+            if($business_detail){
+                $business_info = BusinessInfo::find($business_detail->id);
+            }
+            else{
+                // $user_profile = new UserProfile;
+                $business_info = new BusinessInfo;
+            }
+            $business_info->user_id = $auth_check->id;
+            $business_info->business_name = $request->business_name;
+            $business_info->business_describe = $request->business_describe;
+            $business_info->known_as = $request->known_as;
+            $business_info->business_operating_start_date = $request->business_operating_start_date;
+            $business_info->business_history_describe = $request->business_history_describe;
+            $business_info->hr_point_person = $request->hr_point_person;
+            $business_info->survey_result = $request->survey_result;
+            $business_info->kickoff_session = $request->kickoff_session;
+            $business_info->save();
+
+            $employee_data = EmployeeInfo::where("user_id",$id)->first();
+            if($employee_data){
+                $employee_info = EmployeeInfo::find($employee_data->id);
+            }
+            else{
+                $employee_info = new EmployeeInfo;
+            }
+            $employee_info->user_id = $auth_check->id;
+            $employee_info->demographic_info = $request->demographic_info;
+            $employee_info->historical_employee_engagement = $request->historical_employee_engagement;
+            $employee_info->org_chart = $request->org_chart;
+            $employee_info->employe_handbook = $request->employe_handbook;
+            $employee_info->turnover_data = $request->turnover_data;
+            $employee_info->exit_interview = $request->exit_interview;
+            $employee_info->save();
+
+        }catch(\Exception $e)
+        {
+            DB::rollback();
+            return response()->json(['success'=>false,'message' => $e->getMessage()],500);
+            // return $this->sendError('error', "Something Went Wrong!",404);
+        }
+        DB::commit();
+        return $this->sendResponse(["business_info"=>$business_info,"employee_info"=>$employee_info], 'Business register successfully.',200);
     }
     public function update(Request $request)
     {
@@ -112,13 +145,16 @@ class RegisterController extends BaseController
             }else{
                 $user_profile->date_of_birth = $request->date_of_birth;
             }
+            if($request->hasFile('image')){
+                $user_profile->image = $this->verifyAndUpload($request, 'image', 'images/profile_images/');
+            }
             $user_profile->phone = $request->phone;
             $user_profile->address = $request->address;
             $user_profile->country = $request->country;
             $user_profile->city = $request->city;
             $user_profile->state = $request->state;
             $user_profile->bio = $request->bio;
-            if(isset($user_profile->gender)){
+            if(isset($request->gender)){
                 $user_profile->gender = ucwords($request->gender);
             }
             else{
@@ -128,18 +164,18 @@ class RegisterController extends BaseController
             $user_profile->website = $request->website;
             $user_profile->facebook_link = $request->facebook_link;
             $user_profile->instagram_link = $request->instagram_link;
-            $user_profile->instagram_link = $request->instagram_link;
             $user_profile->linkedin_link = $request->linkedin_link;
             $user_profile->twitter_link = $request->twitter_link;
             $user_profile->life_experience = $request->life_experience;
             $user_profile->designation = $request->designation;
             $user_profile->is_mentor = $request->is_mentor;
+            // dd($user_profile);
             $user_profile->save();
             $user_profile_data = UserProfile::where("id",$user_profile->id)->first()->makeHidden(['id','created_at','updated_at','deleted_at','status']);
         }catch(\Exception $e)
         {
             DB::rollback();
-            return response()->json(['success'=>false,'message' => $e->getMessage()]);
+            return response()->json(['success'=>false,'message' => $e->getMessage()],500);
             // return $this->sendError('error', "Something Went Wrong!",404);
         }
         DB::commit();
@@ -203,7 +239,7 @@ class RegisterController extends BaseController
             return response()->json(['success'=>true,'message'=>'Users register successfully.']);
 
         } catch (ValidationException $e) {
-            return response()->json(['success'=>false,'message' => $e->getMessage()]);
+            return response()->json(['success'=>false,'message' => $e->getMessage()],500);
         }
     }
     // import export
@@ -243,7 +279,7 @@ class RegisterController extends BaseController
         }catch(\Exception $e)
         {
             DB::rollback();
-            return response()->json(['success'=>false,'message' => $e->getMessage()]);
+            return response()->json(['success'=>false,'message' => $e->getMessage()],500);
             // return $this->sendError('error', "Something Went Wrong!",404);
         }
         DB::commit();
