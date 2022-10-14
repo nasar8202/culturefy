@@ -36,6 +36,7 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::get('/export', [RegisterController::class, 'export']);
     Route::post('/users/import', [RegisterController::class, 'import']);
     Route::post('/users/add', [RegisterController::class, 'registerUsers']);
+    Route::get('/users', [AdminDashboardController::class, 'getUsers']);
 
     // users import export
 
@@ -47,8 +48,8 @@ Route::middleware('auth:sanctum')->group( function () {
     
     // Questions & Answers
 
-    Route::get('/question', [QuestionController::class, 'index']);
-    Route::post('/answer', [AnswerController::class, 'store']);
+    Route::get('/questions', [QuestionController::class, 'index']);
+    Route::post('/answers', [AnswerController::class, 'store']);
     
     // Questions & Answers
     

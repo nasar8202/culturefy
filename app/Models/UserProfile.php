@@ -10,4 +10,7 @@ class UserProfile extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    protected $hidden = [
+        'deleted_at','updated_at','created_at','status'
+    ];
 }
