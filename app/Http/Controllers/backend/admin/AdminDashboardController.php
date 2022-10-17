@@ -47,8 +47,8 @@ class AdminDashboardController extends BaseController
     public function getUsers()
     {
         try {
-
-            $get_users = User::where(['status'=>1,'role_id'=>3])->with("user_profiles")->get()->makeHidden(['created_at','updated_at','deleted_at','status','email_verified_at']);
+            $id  = auth('sanctum')->user()->id;
+            $get_users = User::where(['status'=>1,'role_id'=>3,'admin_id'=>$id])->with("user_profiles")->get()->makeHidden(['created_at','updated_at','deleted_at','status','email_verified_at']);
 
             if(!$get_users->isEmpty())
             {

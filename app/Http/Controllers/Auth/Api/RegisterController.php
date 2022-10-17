@@ -47,14 +47,16 @@ class RegisterController extends BaseController
             $input['status'] = 1;
             $input['password'] = Hash::make($input['password']);
             $user = User::create($input);
-            $success['token'] =  $user->createToken('MyApp')->plainTextToken;
-
+            
             $user_profile = new UserProfile;
             $user_profile->user_id =  $user->id;
             $user_profile->email = $user->email;
             $user_profile->save();
-
+            
+            $success['token'] =  $user->createToken('MyApp')->plainTextToken;
             $user_data = User::select('full_name','email','role_id')->where('id',$user->id)->with("roles")->first();
+            $array = ["token"=>$success,"user_data"=>$user_data];
+            $obj = json_decode (json_encode ($array), FALSE);
         }catch(\Exception $e)
         {
             DB::rollback();
@@ -62,7 +64,7 @@ class RegisterController extends BaseController
             // return $this->sendError('error', "Something Went Wrong!",404);
         }
         DB::commit();
-        return $this->sendResponse([$success,$user_data], 'User register successfully.',200);
+        return $this->sendResponse($obj, 'User register successfully.',200);
     }
     public function BusinessDetails(Request $request)
     {
@@ -201,8 +203,9 @@ class RegisterController extends BaseController
             $user = Auth::user(); 
             $success['token'] =  $user->createToken('MyApp')->plainTextToken; 
             $user_data = User::select('full_name','email','role_id')->where('id',$user->id)->with("roles")->first();
-
-            return $this->sendResponse([$success,$user_data], 'User login successfully.',200);
+            $array = ["token"=>$success,"user_data"=>$user_data];
+            $obj = json_decode (json_encode ($array), FALSE);
+            return $this->sendResponse($obj, 'User login successfully.',200);
         } 
         else{ 
             return $this->sendError('Unauthorised.', ['error'=>'Creadentials does not match'],400);
@@ -249,6 +252,8 @@ class RegisterController extends BaseController
         DB::beginTransaction();
         try{
             $input = $request->all();
+            $auth_admin = auth('sanctum')->user();
+            $id  = auth('sanctum')->user()->id;
             // $input['status'] = 1;
             // $input['password'] = Hash::make($input['password']);
             // $success['token'] =  $user->createToken('MyApp')->plainTextToken;
@@ -263,11 +268,16 @@ class RegisterController extends BaseController
                 if($validator->fails()){
                     return $this->sendError('Validation Error.', $validator->errors(),400);       
                 }
+               
+                
                 $user = new User;
                 $user->full_name = $data['full_name'];
                 $user->email = $data['email'];
                 $user->password = Hash::make($data['password']);
                 $user->role_id = $data['role_id'];
+                if($auth_admin->role_id == 2){
+                    $user->admin_id = $id;
+                }
                 $user->save();
 
                 $user_profile = new UserProfile;

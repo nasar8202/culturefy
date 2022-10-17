@@ -37,11 +37,18 @@ class UsersImport implements ToModel , WithHeadingRow
                 // return response()->json(['success'=>false,'message' => $validator->errors()]);
                 // return $this->sendError('Validation Error.', $validator->errors(),400);       
             }
+
+            $auth_admin = auth('sanctum')->user();
+            $id  = auth('sanctum')->user()->id;
+
             $user_data = new User;
             $user_data->full_name = $row['full_name'];
             $user_data->email = $row['email'];
             $user_data->status = 1;
             $user_data->password = Hash::make($row['password']);
+            if($auth_admin->role_id == 2){
+                $user_data->admin_id = $id;
+            }
             $user_data->role_id = 3;
             $user_data->save();
 
