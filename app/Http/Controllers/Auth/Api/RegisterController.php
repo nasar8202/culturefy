@@ -296,4 +296,39 @@ class RegisterController extends BaseController
         return $this->sendResponse('Success', 'Users register successfully.',200);
     }
 
+    public function delete(Request $request)
+    {
+        DB::beginTransaction();
+        try{
+            $validator = Validator::make($request->all(), [
+                'id' => 'required',
+            ]);
+            if($validator->fails()){
+                return $this->sendError('Validation Error.', $validator->errors(),400);       
+            }
+            if(!is_array($request->id)){
+                $array = (array) $request->id;
+            }
+            else{
+                $array = $request->id;
+            }
+            foreach($array as $id){
+                $user_bulk_delete = User::find($id);
+                if(isset($user_bulk_delete))
+                {        
+                  User::where('id',$id)->delete();
+                }
+            }
+
+        }catch(\Exception $e)
+        {
+            DB::rollback();
+            return response()->json(['success'=>false,'message' => $e->getMessage()],500);
+            // return $this->sendError('error', "Something Went Wrong!",404);
+        }
+        DB::commit();
+        return $this->sendResponse("Deleted", 'Users Deleted Successfully.',200);
+
+    }
+
 }

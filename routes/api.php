@@ -19,24 +19,30 @@ use App\Http\Controllers\backend\admin\SurveyStrategyController;
 |
 */
 Route::post('/register', [RegisterController::class, 'register']);
-Route::post('/details/update', [RegisterController::class, 'update']);
 Route::post('/login', [RegisterController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group( function () {
     
+    // login_admin/user_detail update
+
+    Route::put('/details/update', [RegisterController::class, 'update']);
+
+    // login_admin/user_detail update
+
     // business and employee details
     
     Route::post('/business/details', [RegisterController::class, 'BusinessDetails']);
-
+    
     // business and employee details
-
+    
     // users import export
-
+    
     Route::get('/importExportView', [RegisterController::class, 'importExportView']);
     Route::get('/export', [RegisterController::class, 'export']);
     Route::post('/users/import', [RegisterController::class, 'import']);
     Route::post('/users/add', [RegisterController::class, 'registerUsers']);
     Route::get('/users', [AdminDashboardController::class, 'getUsers']);
+    Route::delete('/users', [RegisterController::class, 'delete']);
 
     // users import export
 
@@ -55,7 +61,8 @@ Route::middleware('auth:sanctum')->group( function () {
     
     // Survey Strategy
 
-    Route::post('/survey/add', [SurveyStrategyController::class, 'create']);
+    Route::get('/survey', [SurveyStrategyController::class, 'index']);
+    Route::post('/survey', [SurveyStrategyController::class, 'create']);
 
     // Survey Strategy
 

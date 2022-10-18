@@ -19,7 +19,26 @@ class SurveyStrategyController extends BaseController
      */
     public function index()
     {
-        //
+        try {
+
+            $survey_data = SurveyStrategy::where('status',1)->get()->makeHidden(['created_at','updated_at','deleted_at','status','remember_token']);
+
+            if(!$survey_data->isEmpty())
+            {
+            return $this->sendResponse($survey_data, 'Data Fetched successfully.',200);
+            }
+            else
+            {
+                return $this->sendError(
+                    'Invalid.',
+                    ['error' => 'Record Not Found'],
+                    200
+                );
+            }
+        }
+        catch (\Exception $e) {
+            return response()->json(['success'=>false,'message' => $e->getMessage()],500);
+        }
     }
 
     /**
@@ -32,7 +51,7 @@ class SurveyStrategyController extends BaseController
         DB::beginTransaction();
         try{
             $validator = Validator::make($request->all(), [
-                'survey_data' => 'required|json',
+                'survey_data' => 'required',
             ]);
        
             if($validator->fails()){
