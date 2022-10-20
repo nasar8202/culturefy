@@ -16,6 +16,8 @@ class CreateSurveyStrategiesTable extends Migration
         Schema::create('survey_strategies', function (Blueprint $table) {
             $table->increments("id");
             $table->longText('survey_data');
+            $table->integer('admin_id')->unsigned()->nullable(); 
+            $table->foreign('admin_id')->references('id')->on('users')->onDelete('cascade');
             $table->tinyInteger('status')->default(1);
             $table->rememberToken();
             $table->timestamps();

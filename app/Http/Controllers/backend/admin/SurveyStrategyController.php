@@ -21,7 +21,7 @@ class SurveyStrategyController extends BaseController
     {
         try {
 
-            $survey_data = SurveyStrategy::where('status',1)->get()->makeHidden(['created_at','updated_at','deleted_at','status','remember_token']);
+            $survey_data = SurveyStrategy::where('status',1)->with('admin_data')->get()->makeHidden(['created_at','updated_at','deleted_at','status','remember_token','admin_id']);
 
             if(!$survey_data->isEmpty())
             {
@@ -57,8 +57,15 @@ class SurveyStrategyController extends BaseController
             if($validator->fails()){
                 return $this->sendError('Validation Error.', $validator->errors(),400);       
             }
+            $auth_check = auth('sanctum')->user();
+            if(empty($auth_check)){
+                return $this->sendError("Token Missing!",'error',404);
+            }
+            $id  = auth('sanctum')->user()->id;
+
             $survey = new SurveyStrategy;
             $survey->survey_data = $request->survey_data;
+            $survey->admin_id = $id;
             $survey->save();
 
         }catch(\Exception $e)

@@ -18,4 +18,13 @@ class BrandCultureAnswer extends Model
     {
         return $this->hasOne(BrandCultureQuestion::class, 'id', 'brand_culture_question_id');
     }
+    public function setAnswerAttribute($value)
+    {
+        $this->attributes['answer'] = json_encode($value);
+    }
+
+    public function getAnswerAttribute($value)
+    {
+        return $this->attributes['answer'] = json_decode($value);
+    }
 }

@@ -39,7 +39,6 @@ class AnswerController extends BaseController
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         DB::beginTransaction();
         try{
             $auth_check = auth('sanctum')->user();
@@ -47,14 +46,15 @@ class AnswerController extends BaseController
                 return $this->sendError("Token Missing!",'error',404);
             }
             $id  = auth('sanctum')->user()->id;
-            $input = $request->all();
-            foreach($input as $data){
+            // $input = $request->all();
+            // foreach($input as $data){
                 $answer = new BrandCultureAnswer;
                 $answer->user_id = $id;
-                $answer->brand_culture_question_id = $data['brand_culture_question_id'];
-                $answer->answer = $data['answer'];
+                // $answer->brand_culture_question_id = $data['brand_culture_question_id'];
+                // $answer->answer = $data['answer'];
+                $answer->answer = $request->answer;
                 $answer->save();
-            }
+            // }
 
         }catch(\Exception $e)
         {
