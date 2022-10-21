@@ -41,6 +41,13 @@ class AnswerController extends BaseController
     {
         DB::beginTransaction();
         try{
+            $validator = Validator::make($request->all(), [
+                'answer' => 'required',
+            ]);
+       
+            if($validator->fails()){
+                return $this->sendError('Validation Error.', $validator->errors(),400);       
+            }
             $auth_check = auth('sanctum')->user();
             if(empty($auth_check)){
                 return $this->sendError("Token Missing!",'error',404);
